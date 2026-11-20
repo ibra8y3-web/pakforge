@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path
+        name="compressed_packages"
+        path="pakforge_output/" />
+    <files-path
+        name="exported_packages"
+        path="pakforge_exports/" />
+</paths>

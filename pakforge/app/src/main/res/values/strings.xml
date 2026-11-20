@@ -1,0 +1,293 @@
+<resources>
+    <string name="app_name">PakForge</string>
+
+    <!-- Navigation -->
+    <string name="nav_forge">Forge</string>
+    <string name="nav_analyzer">Inspector</string>
+    <string name="nav_history">History</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Hero & Telemetry -->
+    <string name="hero_badge">OPEN-SOURCE ENGINE v2.4</string>
+    <string name="hero_title">Smart Package Compressor</string>
+    <string name="hero_subtitle">Entropy-guided lossless APK &amp; archive compression with 4-byte ZipAlign &amp; zero-error integrity guards.</string>
+    <string name="telemetry_ram">Free RAM</string>
+    <string name="telemetry_cores">CPU Cores</string>
+    <string name="telemetry_buffer">Adaptive I/O</string>
+    <string name="telemetry_eco_mode">Eco Throttle</string>
+    <string name="telemetry_turbo_mode">Full Speed</string>
+
+    <!-- Input Actions -->
+    <string name="action_pick_file">Upload APK / ZIP</string>
+    <string name="action_pick_installed">Installed Apps</string>
+    <string name="action_self_test">Test This App</string>
+    <string name="empty_state_title">Ready to Analyze &amp; Compress</string>
+    <string name="empty_state_desc">Upload an .apk, .aab, or .zip file from storage, or pick an installed app to inspect its bytecode, entropy, and compress it safely.</string>
+
+    <!-- Package Blueprint -->
+    <string name="blueprint_title">Package Blueprint</string>
+    <string name="pkg_version">Version</string>
+    <string name="pkg_sdk">SDK</string>
+    <string name="pkg_entries">Entries</string>
+    <string name="pkg_entropy">Avg Entropy</string>
+    <string name="pkg_safety_score">Safety Score</string>
+    <string name="cat_dex">DEX Bytecode</string>
+    <string name="cat_native">Native (.so)</string>
+    <string name="cat_arsc">resources.arsc</string>
+    <string name="cat_manifest">Manifest &amp; XML</string>
+    <string name="cat_media">Media &amp; Assets</string>
+    <string name="cat_meta">Metadata</string>
+
+    <!-- Compression Profiles & Guards -->
+    <string name="engine_config_title">Compression Engine</string>
+    <string name="profile_balanced">Zero-Risk Balanced</string>
+    <string name="profile_balanced_desc">Deflate L6 + 4B arsc align + high-entropy bypass</string>
+    <string name="profile_ultra">Ultra Shrink</string>
+    <string name="profile_ultra_desc">Max Deflate L9 + prune debug probes</string>
+    <string name="profile_eco">Low-RAM Eco</string>
+    <string name="profile_eco_desc">8KB buffer throttle for low memory &amp; battery</string>
+
+    <string name="guard_arsc_align">resources.arsc 4-Byte ZipAlign Guard</string>
+    <string name="guard_entropy_bypass">Entropy Bypass (&gt;7.85 b/B Media)</string>
+    <string name="guard_prune_debug">Prune Non-Runtime Debug Artifacts</string>
+    <string name="guard_ram_throttle">Adaptive Memory &amp; Thermal Throttle</string>
+
+    <string name="action_compress_now">Forge &amp; Compress</string>
+    <string name="action_compressing">Compressing &amp; Verifying…</string>
+
+    <!-- Progress Phases -->
+    <string name="phase_inspecting">Scanning archive structure &amp; entropy…</string>
+    <string name="phase_compressing">Running adaptive Deflate + ZipAlign…</string>
+    <string name="phase_verifying">Verifying CRC-32 &amp; SHA-256 integrity…</string>
+
+    <!-- Result Card -->
+    <string name="result_verified_badge">CRC-32 VERIFIED • 0 ERRORS</string>
+    <string name="result_before">Original</string>
+    <string name="result_after">Compressed</string>
+    <string name="result_saved">Saved</string>
+    <string name="result_elapsed">Time</string>
+    <string name="result_peak_ram">Peak Heap</string>
+    <string name="result_bypassed">Bypassed Media</string>
+    <string name="result_pruned">Pruned Debug</string>
+    <string name="result_arsc_status">resources.arsc 4B Aligned</string>
+    <string name="result_sha256">SHA-256 Digest</string>
+    <string name="result_resign_notice">APK Signing Notice: Modifying archive entries invalidates the original v1/v2/v3 signature. Re-sign with apksigner before sideloading on Android.</string>
+    <string name="action_save_output">Save to Device</string>
+    <string name="action_share_output">Share</string>
+    <string name="msg_saved_success">Compressed package saved successfully</string>
+    <string name="msg_error_generic">Operation failed</string>
+
+    <!-- Inspector Tab -->
+    <string name="inspector_search_hint">Filter entries by path…</string>
+    <string name="inspector_filter_all">All</string>
+    <string name="inspector_no_package">Load a package in Forge first to inspect all internal entries, Shannon entropy, and compression strategies.</string>
+    <string name="action_strategy_deflate9">Deflate L9</string>
+    <string name="action_strategy_deflate6">Deflate L6</string>
+    <string name="action_strategy_stored_align">STORED + 4B Align</string>
+    <string name="action_strategy_stored_page">STORED + 4KB Align</string>
+    <string name="action_strategy_bypass">Bypass (STORED)</string>
+    <string name="action_strategy_prune">Safe Prune</string>
+
+    <!-- History Tab -->
+    <string name="history_title">Audit History</string>
+    <string name="history_total_saved">Total Storage Reclaimed</string>
+    <string name="history_runs_count">Verified Runs</string>
+    <string name="history_clear_all">Clear All</string>
+    <string name="history_empty">No compression audits yet. Your verified package runs will appear here.</string>
+    <string name="history_delete">Delete record</string>
+
+    <!-- Settings Tab -->
+    <string name="settings_title">Engine &amp; Localization</string>
+    <string name="settings_language">App Language</string>
+    <string name="settings_theme">Visual Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_dark">Obsidian Dark</string>
+    <string name="theme_light">Precision Light</string>
+    <string name="settings_defaults">Default Safety Pipeline</string>
+    <string name="settings_opensource_title">Open-Source Architecture</string>
+    <string name="settings_opensource_desc">PakForge uses deterministic Shannon entropy sampling, strict ZipAlign offset tracking for resources.arsc &amp; native .so libraries, and full post-write CRC-32 verification under Apache-2.0 open principles.</string>
+
+    <!-- Installed Apps Picker -->
+    <string name="picker_installed_title">Select Installed App APK</string>
+    <string name="picker_search_apps">Search apps…</string>
+    <string name="picker_loading">Scanning launcher packages…</string>
+    <string name="action_close">Close</string>
+
+    <!-- New Pro Features: ABI Stripper, Savings Predictor, Security & Duplicate Audit -->
+    <string name="abi_optimizer_title">ABI Native Library Stripper</string>
+    <string name="abi_device_badge">Device ABI: %1$s</string>
+    <string name="abi_keep_all">Keep All (Universal)</string>
+    <string name="abi_device_only">This Device Only</string>
+    <string name="abi_none_detected">Pure DEX / Resource Package (No Native .so)</string>
+    <string name="predicted_output_label">Predicted Output</string>
+    <string name="security_audit_title">Security &amp; Bloat Audit</string>
+    <string name="audit_permissions_total">%1$d Permissions (%2$d Sensitive)</string>
+    <string name="audit_debuggable_warn">Debuggable Flag Enabled</string>
+    <string name="audit_release_ok">Release Build (Not Debuggable)</string>
+    <string name="audit_backup_flag">AllowBackup Enabled</string>
+    <string name="audit_cert_sha256">Signing Cert SHA-256</string>
+    <string name="audit_duplicates_found">%1$d Duplicate Files (%2$s wasted)</string>
+    <string name="audit_no_duplicates">0 Duplicate Assets Found</string>
+    <string name="action_copy_json">Copy JSON Audit</string>
+    <string name="msg_json_copied">JSON audit report copied to clipboard</string>
+    <string name="result_abi_stripped">ABIs Stripped</string>
+
+    <!-- Install Engine & Side-by-Side Clone -->
+    <string name="install_mode_title">Output Identity &amp; Install Engine</string>
+    <string name="install_mode_same">Same Package ID (Update / Replace)</string>
+    <string name="install_mode_same_desc">Keeps original package ID. Requires matching signature or clean install.</string>
+    <string name="install_mode_clone">New Package ID (Side-by-Side Clone)</string>
+    <string name="install_mode_clone_desc">Patches AndroidManifest.xml so compressed app installs alongside original for comparison.</string>
+    <string name="install_clone_suffix">Clone Package Suffix</string>
+    <string name="install_signed_v2_badge">APK v2 SIGNED • READY TO INSTALL</string>
+    <string name="action_install_apk">Install App Now</string>
+    <string name="action_grant_install_perm">Allow App Installs in Settings</string>
+    <string name="install_status_preparing">Streaming signed APK to Android PackageInstaller…</string>
+    <string name="install_status_prompt">Confirm installation in Android system dialog…</string>
+    <string name="install_status_success">App installed successfully!</string>
+    <string name="install_status_failed">Install failed: %1$s</string>
+    <string name="install_target_pkg">Target Package ID: %1$s</string>
+    <string name="action_install_options">Install Options (Update / Uninstall / Clone)</string>
+    <string name="install_sheet_title">Choose Installation Method</string>
+    <string name="install_sheet_conflict_subtitle">This package is already installed with a different signing key. Choose how to proceed:</string>
+    <string name="install_sheet_ready_subtitle">Select how to install the compressed APK on your device:</string>
+    <string name="install_opt_update_title">Update Existing App</string>
+    <string name="install_opt_update_desc">Installs directly over the installed package with the same ID.</string>
+    <string name="install_opt_update_sig_warn">Different signature detected — requires matching key or uninstall first</string>
+    <string name="install_opt_uninstall_title">Uninstall Original &amp; Install</string>
+    <string name="install_opt_uninstall_desc">Prompts to remove the existing app first, then installs this compressed APK automatically.</string>
+    <string name="install_opt_system_warn">Pre-installed system app — may block full removal; Side-by-Side Clone is recommended</string>
+    <string name="install_opt_clone_title">Install Side-by-Side Copy (Recommended)</string>
+    <string name="install_opt_clone_desc">Patches AndroidManifest.xml with a new ID so both apps stay installed for comparison.</string>
+    <string name="install_opt_clone_action">Build Clone &amp; Install</string>
+    <string name="install_opt_repacking">Patching manifest &amp; signing APK v2…</string>
+    <string name="split_bundle_badge">Split Bundle (%1$d APKs)</string>
+    <string name="runtime_risk_static_lib_warn">Protected Library / Anti-Tamper Notice (%1$s): Re-signing or cloning apps that rely on static shared libraries (e.g., Chrome/Trichrome) or internal Play signature checks may cause them to close on launch.</string>
+
+    <!-- v3.0 Pro Engines: Compatibility, Universal Merger, Locale/Image Optimizer, Deep Clone, Shizuku -->
+    <string name="compat_title">Pre-Flight Compatibility Check</string>
+    <string name="compat_score">Readiness: %1$d/100</string>
+    <string name="compat_autofix_action">1-Tap Auto-Fix Config</string>
+    <string name="compat_tier_ready">VERIFIED READY</string>
+    <string name="compat_tier_fixable">AUTO-FIXABLE</string>
+    <string name="compat_tier_protected">PROTECTED SYSTEM</string>
+
+    <string name="opt_universal_merge">Merge Split Bundle into Universal APK</string>
+    <string name="opt_universal_merge_desc">Combines base + kept splits (DEX, resources.arsc, native .so) into one standalone .apk.</string>
+    <string name="result_merged_universal">Universal Merged APK</string>
+
+    <string name="opt_strip_shared_uid">Strip android:sharedUserId (System Bypass)</string>
+    <string name="opt_patch_static_lib">Patch Static-Lib certDigest to PakForge Key</string>
+    <string name="opt_bundle_companion_libs">Re-Sign Companion Static Libraries</string>
+    <string name="result_stripped_shared_uid">sharedUserId Stripped</string>
+    <string name="install_companion_libs_btn">Install Re-Signed Companion Libraries</string>
+    <string name="install_companion_and_app">Companion library detected — install it first (or automatically via Shizuku).</string>
+
+    <string name="opt_locale_prune">Prune Unused Languages (resources.arsc)</string>
+    <string name="opt_locale_prune_desc">Drops unneeded locale tables while preserving default resources &amp; selected languages.</string>
+    <string name="locale_keep_chips_label">Keep Locales:</string>
+    <string name="opt_image_crunch">Smart Asset Image Crunch (PNG / WebP)</string>
+    <string name="opt_image_crunch_desc">Lossless / perceptual re-encode on images &gt;12KB (skips .9.png patches).</string>
+    <string name="result_locales_pruned">Locales Pruned</string>
+    <string name="result_images_crunched">Images Optimized</string>
+
+    <string name="clone_custom_label_hint">Custom Cloned App Name (optional)</string>
+    <string name="clone_tint_icon_toggle">Stamp PF Badge on Cloned Launcher Icons</string>
+
+    <string name="shizuku_title">Shizuku Elevated Engine</string>
+    <string name="shizuku_ready_shell">Shizuku Shell Active (UID %1$d)</string>
+    <string name="shizuku_ready_root">Shizuku Root Active (UID 0)</string>
+    <string name="shizuku_perm_required">Shizuku running — grant permission to enable elevated install &amp; bloatware tools</string>
+    <string name="shizuku_not_running">Shizuku installed — start the Shizuku service via Wireless Debugging</string>
+    <string name="shizuku_not_installed">Shizuku app not detected (optional for rootless system/downgrade installs)</string>
+    <string name="shizuku_grant_btn">Authorize Shizuku</string>
+    <string name="shizuku_open_app_btn">Open Shizuku / Dev Options</string>
+    <string name="shizuku_refresh_btn">Refresh</string>
+    <string name="opt_prefer_shizuku">Use Shizuku Elevated Installer (Allow Downgrade)</string>
+    <string name="install_via_shizuku">Install via Shizuku Shell (-r -t -d)</string>
+    <string name="shizuku_uninstall_keep_data_btn">Uninstall via Shizuku (Keep Data)</string>
+    <string name="shizuku_uninstall_system_btn">Remove Bloatware (--user 0)</string>
+    <string name="system_app_badge">System</string>
+
+    <!-- Multi-Backend Elevated Shell Orchestrator -->
+    <string name="bridge_multi_title">Elevated Privilege Backends</string>
+    <string name="bridge_multi_desc">Auto-accepts KernelSU, APatch, Magisk Root (su), Sui, Shizuku, and probes Dhizuku.</string>
+    <string name="bridge_mode_auto">Auto Priority</string>
+    <string name="bridge_mode_root">Root (su)</string>
+    <string name="bridge_mode_sui">Sui</string>
+    <string name="bridge_mode_shizuku">Shizuku</string>
+    <string name="bridge_active_label">Active Engine: %1$s</string>
+
+    <!-- Developers & Plugin SDK Hub (Settings Only) -->
+    <string name="dev_hub_card_title">Plugins &amp; Developer SDK</string>
+    <string name="dev_hub_card_subtitle">Plugin API v%1$s • Permissions • Sample Project • Full Docs</string>
+    <string name="dev_hub_open_btn">Open Developer &amp; Plugin Hub</string>
+    <string name="dev_hub_tab_store">Plugin Store</string>
+    <string name="dev_hub_tab_plugins">Installed</string>
+    <string name="dev_hub_tab_sdk">SDK &amp; Sample</string>
+    <string name="dev_hub_tab_examples">APIs &amp; Code</string>
+    <string name="dev_hub_tab_docs">Docs</string>
+    <string name="dev_import_manifest_btn">Import Bundle / Manifest (.pfpak / .json)</string>
+    <string name="dev_export_sdk_btn">Export Standalone SDK + Sample (.zip)</string>
+    <string name="dev_run_sandbox_btn">Run Plugin</string>
+    <string name="dev_permissions_label">Permissions (%1$d/%2$d Granted)</string>
+    <string name="dev_sandbox_output_title">Live Sandbox Console</string>
+    <string name="dev_notifications_feed_title">Plugin Notification Dispatch Feed</string>
+    <string name="dev_copy_code_btn">Copy Code</string>
+
+    <!-- Plugin Store, Smart Recognition & Security Verification -->
+    <string name="store_smart_match_title">Smart Context Recognition</string>
+    <string name="store_smart_empty_hint">Load an APK in Forge or check device telemetry to highlight tailored tools.</string>
+    <string name="store_smart_refresh_btn">Refresh Context</string>
+    <string name="store_import_bundle_btn">Import .pfpak / .json</string>
+    <string name="store_create_builder_btn">Create &amp; Sign .pfpak</string>
+    <string name="store_search_hint">Search signed Store plugins…</string>
+    <string name="store_verify_install_btn">Verify &amp; Install</string>
+    <string name="store_installed_badge">Installed</string>
+    <string name="store_cat_all">All</string>
+    <string name="security_review_title">Plugin Security &amp; Signature Scan</string>
+    <string name="security_review_score">Safety Score: %1$d/100 (%2$s)</string>
+    <string name="security_review_permissions">Approve Scoped Permissions Before Install:</string>
+    <string name="security_review_confirm_btn">Verify &amp; Install Plugin</string>
+    <string name="security_review_blocked_btn">Blocked by Security Scanner</string>
+    <string name="builder_title">Developer .pfpak Tool Builder &amp; Signer</string>
+    <string name="builder_sign_install_btn">Sign &amp; Install Now</string>
+    <string name="builder_sign_export_btn">Sign &amp; Export .pfpak</string>
+
+    <!-- Settings & Developer Hub Localized Labels -->
+    <string name="lang_system_title">System Default</string>
+    <string name="lang_system_subtitle">Device Locale</string>
+    <string name="dev_hub_badge_plugins_api">%1$d Plugins • API %2$d</string>
+    <string name="dev_hub_badge_perms_sdk">6 Scoped Permissions • Exportable ZIP SDK</string>
+    <string name="dev_sdk_header_title">Standalone Gradle Plugin SDK v%1$s</string>
+    <string name="dev_sdk_header_desc">Includes pure-Kotlin :pakforge-sdk unified contracts, :sample-plugin Gradle module, pakforge-plugin.json schema, SemVer validator, and full documentation.</string>
+    <string name="dev_sdk_tree_title">Included SDK &amp; Sample Project Tree (%1$d files)</string>
+    <string name="dev_sdk_ref_manifest">Reference pakforge-plugin.json</string>
+    <string name="dev_apis_unified_title">Unified SDK Interfaces</string>
+    <string name="dev_apis_perm_label">Permission: %1$s</string>
+    <string name="dev_clear_btn">Clear</string>
+    <string name="dev_sent_system_tray">Sent to System Tray</string>
+    <string name="dev_remove_plugin_cd">Remove plugin</string>
+    <string name="security_ecdsa_key_label">ECDSA Key SHA-256: %1$s</string>
+    <string name="security_payload_sha_label">Payload SHA-256: %1$s…</string>
+    <string name="security_steps_count">%1$d steps</string>
+    <string name="builder_id_label">Plugin ID (reverse-DNS)</string>
+    <string name="builder_name_label">Tool Name</string>
+    <string name="builder_version_label">SemVer</string>
+    <string name="builder_author_label">Publisher / Author</string>
+    <string name="builder_desc_label">Description</string>
+    <string name="builder_category_label">Category</string>
+    <string name="builder_steps_label">Pipeline Action Steps</string>
+    <string name="builder_perms_label">Declared Permissions</string>
+    <string name="builder_rules_label">Smart Recognition &amp; Compression Rules</string>
+    <string name="builder_rule_smart_splits">Smart: Split APKs</string>
+    <string name="builder_rule_smart_uid">Smart: sharedUserId</string>
+    <string name="builder_rule_smart_ram">Smart: Low RAM</string>
+    <string name="builder_rule_prune_locales">Rule: Prune Locales</string>
+    <string name="builder_rule_merge_splits">Rule: Universal Merge</string>
+    <string name="builder_rule_strip_uid">Rule: Strip sharedUserId</string>
+    <string name="builder_signer_sha_label">Signer Key SHA-256: %1$s</string>
+    <string name="builder_default_name">Smart Community Slimmer</string>
+    <string name="builder_default_author">Independent Developer</string>
+    <string name="builder_default_desc">Custom multi-step optimization &amp; telemetry plugin signed with ECDSA P-256.</string>
+</resources>

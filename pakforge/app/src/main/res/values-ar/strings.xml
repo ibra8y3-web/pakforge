@@ -1,0 +1,293 @@
+<resources>
+    <string name="app_name">PakForge</string>
+
+    <!-- Navigation -->
+    <string name="nav_forge">المُعالج</string>
+    <string name="nav_analyzer">الفاحص</string>
+    <string name="nav_history">السجل</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <!-- Hero & Telemetry -->
+    <string name="hero_badge">محرك مفتوح المصدر v2.4</string>
+    <string name="hero_title">مُضغِّط الحزم الذكي</string>
+    <string name="hero_subtitle">ضغط حقيقي غير مُفقِد لحزم APK والملفات بتوجيه الإنتروبيا، ومحاذاة 4-بايت لـ resources.arsc دون أي أخطاء.</string>
+    <string name="telemetry_ram">الذاكرة المتاحة</string>
+    <string name="telemetry_cores">الأنوية</string>
+    <string name="telemetry_buffer">الذاكرة المؤقتة</string>
+    <string name="telemetry_eco_mode">وضع التوفير</string>
+    <string name="telemetry_turbo_mode">أقصى سرعة</string>
+
+    <!-- Input Actions -->
+    <string name="action_pick_file">رفع APK / ZIP</string>
+    <string name="action_pick_installed">التطبيقات المثبتة</string>
+    <string name="action_self_test">اختبار هذا التطبيق</string>
+    <string name="empty_state_title">جاهز للتحليل والضغط الذكي</string>
+    <string name="empty_state_desc">ارفع ملف .apk أو .aab أو .zip من جهازك، أو اختر تطبيقاً مثبتاً لفحصه وضغطه بأعلى دقة دون إتلاف الموارد.</string>
+
+    <!-- Package Blueprint -->
+    <string name="blueprint_title">مخطط الحزمة البرمجية</string>
+    <string name="pkg_version">الإصدار</string>
+    <string name="pkg_sdk">SDK</string>
+    <string name="pkg_entries">الملفات</string>
+    <string name="pkg_entropy">متوسط الإنتروبيا</string>
+    <string name="pkg_safety_score">درجة الأمان</string>
+    <string name="cat_dex">كود DEX</string>
+    <string name="cat_native">مكتبات (.so)</string>
+    <string name="cat_arsc">resources.arsc</string>
+    <string name="cat_manifest">البيان و XML</string>
+    <string name="cat_media">الوسائط والأصول</string>
+    <string name="cat_meta">البيانات الوصفية</string>
+
+    <!-- Compression Profiles & Guards -->
+    <string name="engine_config_title">محرك الضغط الذكي</string>
+    <string name="profile_balanced">متوازن (صفر مخاطر)</string>
+    <string name="profile_balanced_desc">ضغط L6 + محاذاة 4B + تجاوز الوسائط المضغوطة</string>
+    <string name="profile_ultra">ضغط فائق</string>
+    <string name="profile_ultra_desc">أقصى ضغط L9 + إزالة ملفات التصحيح غير الضرورية</string>
+    <string name="profile_eco">اقتصادي للذاكرة</string>
+    <string name="profile_eco_desc">مخزن 8KB لتقليل استهلاك الرام والبطارية</string>
+
+    <string name="guard_arsc_align">حماية ومحاذاة 4-بايت لـ resources.arsc</string>
+    <string name="guard_entropy_bypass">تجاوز الإنتروبيا العالية (&gt;7.85 b/B)</string>
+    <string name="guard_prune_debug">إزالة ملفات التصحيح غير التشغيلية</string>
+    <string name="guard_ram_throttle">التحكم التلقائي في الذاكرة والطاقة</string>
+
+    <string name="action_compress_now">ضغط والتحقق الآن</string>
+    <string name="action_compressing">جاري الضغط والتحقق…</string>
+
+    <!-- Progress Phases -->
+    <string name="phase_inspecting">فحص بنية الحزمة وحساب الإنتروبيا…</string>
+    <string name="phase_compressing">تشغيل الضغط التكيفي والمحاذاة…</string>
+    <string name="phase_verifying">التحقق من CRC-32 وبصمة SHA-256…</string>
+
+    <!-- Result Card -->
+    <string name="result_verified_badge">تم التحقق CRC-32 • بدون أخطاء</string>
+    <string name="result_before">الأصلي</string>
+    <string name="result_after">المضغوط</string>
+    <string name="result_saved">تم توفير</string>
+    <string name="result_elapsed">الزمن</string>
+    <string name="result_peak_ram">ذروة الرام</string>
+    <string name="result_bypassed">وسائط متجاوزة</string>
+    <string name="result_pruned">تصحيح محذوف</string>
+    <string name="result_arsc_status">resources.arsc محاذى 4B</string>
+    <string name="result_sha256">بصمة SHA-256</string>
+    <string name="result_resign_notice">تنبيه التوقيع: تعديل ملفات الحزمة يُلغي التوقيع الرقمي الأصلي (v1/v2/v3). أعد التوقيع عبر apksigner قبل التثبيت.</string>
+    <string name="action_save_output">حفظ بالجهاز</string>
+    <string name="action_share_output">مشاركة</string>
+    <string name="msg_saved_success">تم حفظ الحزمة المضغوطة بنجاح</string>
+    <string name="msg_error_generic">فشلت العملية</string>
+
+    <!-- Inspector Tab -->
+    <string name="inspector_search_hint">ابحث عن مسار الملف…</string>
+    <string name="inspector_filter_all">الكل</string>
+    <string name="inspector_no_package">قم بتحميل حزمة في المعالج أولاً لاستعراض كافة الملفات ومستوى الإنتروبيا واستراتيجية الضغط.</string>
+    <string name="action_strategy_deflate9">Deflate L9</string>
+    <string name="action_strategy_deflate6">Deflate L6</string>
+    <string name="action_strategy_stored_align">STORED + محاذاة 4B</string>
+    <string name="action_strategy_stored_page">STORED + محاذاة 4KB</string>
+    <string name="action_strategy_bypass">تجاوز ذكي (STORED)</string>
+    <string name="action_strategy_prune">حذف آمن</string>
+
+    <!-- History Tab -->
+    <string name="history_title">سجل التدقيق</string>
+    <string name="history_total_saved">إجمالي المساحة المُوفَّرة</string>
+    <string name="history_runs_count">عمليات موثقة</string>
+    <string name="history_clear_all">مسح الكل</string>
+    <string name="history_empty">لا توجد عمليات ضغط مسجلة بعد. ستظهر تقارير الحزم الموثقة هنا.</string>
+    <string name="history_delete">حذف السجل</string>
+
+    <!-- Settings Tab -->
+    <string name="settings_title">المحرك واللغات</string>
+    <string name="settings_language">لغة التطبيق</string>
+    <string name="settings_theme">المظهر البصري</string>
+    <string name="theme_system">تلقائي (النظام)</string>
+    <string name="theme_dark">الوضع الداكن</string>
+    <string name="theme_light">الوضع الفاتح</string>
+    <string name="settings_defaults">معايير الأمان الافتراضية</string>
+    <string name="settings_opensource_title">معمارية مفتوحة المصدر</string>
+    <string name="settings_opensource_desc">يعتمد PakForge على خوارزمية إنتروبيا شانون الحتمية، وتتبع الإزاحة الدقيق لمحاذاة resources.arsc ومكتبات .so، والتحقق الشامل بـ CRC-32 وفق معايير Apache-2.0.</string>
+
+    <!-- Installed Apps Picker -->
+    <string name="picker_installed_title">اختر حزمة تطبيق مثبت</string>
+    <string name="picker_search_apps">ابحث عن تطبيق…</string>
+    <string name="picker_loading">جاري فحص التطبيقات…</string>
+    <string name="action_close">إغلاق</string>
+
+    <!-- New Pro Features -->
+    <string name="abi_optimizer_title">مُقلِّم معماريات المعالج (ABI)</string>
+    <string name="abi_device_badge">معمارية جهازك: %1$s</string>
+    <string name="abi_keep_all">الكل (شامل)</string>
+    <string name="abi_device_only">لهذا الجهاز فقط</string>
+    <string name="abi_none_detected">حزمة DEX/موارد نقية (بدون مكتبات .so)</string>
+    <string name="predicted_output_label">الحجم المتوقع</string>
+    <string name="security_audit_title">تدقيق الأمان والتكرار</string>
+    <string name="audit_permissions_total">%1$d صلاحية (%2$d حساسة)</string>
+    <string name="audit_debuggable_warn">وضع التصحيح (Debuggable) مُفعَّل</string>
+    <string name="audit_release_ok">إصدار إنتاجي آمن (غير قابل للتصحيح)</string>
+    <string name="audit_backup_flag">النسخ الاحتياطي (AllowBackup) مُفعَّل</string>
+    <string name="audit_cert_sha256">بصمة شهادة التوقيع SHA-256</string>
+    <string name="audit_duplicates_found">%1$d ملفات مكررة (%2$s مهدرة)</string>
+    <string name="audit_no_duplicates">لا توجد ملفات مكررة (0 مهدر)</string>
+    <string name="action_copy_json">نسخ تقرير JSON</string>
+    <string name="msg_json_copied">تم نسخ تقرير التدقيق JSON إلى الحافظة</string>
+    <string name="result_abi_stripped">مكتبات ABI محذوفة</string>
+
+    <!-- Install Engine & Side-by-Side Clone -->
+    <string name="install_mode_title">هوية الحزمة ومحرك التثبيت</string>
+    <string name="install_mode_same">نفس معرّف الحزمة (تحديث / استبدال)</string>
+    <string name="install_mode_same_desc">يحتفظ بمعرّف التطبيق الأصلي. مناسب للتثبيت الجديد أو مطابقة التوقيع.</string>
+    <string name="install_mode_clone">حزمة جديدة مستقلة (نسخة للمقارنة)</string>
+    <string name="install_mode_clone_desc">يعدّل AndroidManifest.xml لتثبيت التطبيق المضغوط بجانب الأصلي للمقارنة.</string>
+    <string name="install_clone_suffix">لاحقة الحزمة الجديدة</string>
+    <string name="install_signed_v2_badge">موقّع APK v2 • جاهز للتثبيت المباشر</string>
+    <string name="action_install_apk">تثبيت التطبيق الآن</string>
+    <string name="action_grant_install_perm">تفعيل إذن تثبيت التطبيقات</string>
+    <string name="install_status_preparing">جاري إرسال الحزمة الموقّعة إلى مُثبّت النظام…</string>
+    <string name="install_status_prompt">أكّد التثبيت من نافذة نظام أندرويد…</string>
+    <string name="install_status_success">تم تثبيت التطبيق بنجاح!</string>
+    <string name="install_status_failed">فشل التثبيت: %1$s</string>
+    <string name="install_target_pkg">المعرّف المستهدف: %1$s</string>
+    <string name="action_install_options">خيارات التثبيت (تحديث / حذف / نسخة ثانية)</string>
+    <string name="install_sheet_title">اختر طريقة التثبيت</string>
+    <string name="install_sheet_conflict_subtitle">هذا التطبيق مثبّت بالفعل بتوقيع مختلف. اختر الطريقة المناسبة لإكمال التثبيت:</string>
+    <string name="install_sheet_ready_subtitle">اختر كيف تريد تثبيت الحزمة المضغوطة على هاتفك:</string>
+    <string name="install_opt_update_title">تحديث النسخة الموجودة</string>
+    <string name="install_opt_update_desc">يثبّت التطبيق المضغوط بنفس المعرّف فوق النسخة الحالية مباشرة.</string>
+    <string name="install_opt_update_sig_warn">التوقيع مختلف عن النسخة الحالية — يتطلب نفس المفتاح أو الحذف أولاً</string>
+    <string name="install_opt_uninstall_title">حذف الأصلية وتثبيت المضغوطة</string>
+    <string name="install_opt_uninstall_desc">يحذف النسخة المثبتة أولاً ثم يبدأ تثبيت النسخة المضغوطة تلقائياً بنفس المعرّف.</string>
+    <string name="install_opt_system_warn">تطبيق نظام مدمج — قد لا يقبل الحذف الكامل بدون روت؛ يُنصح بخيار النسخة الثانية</string>
+    <string name="install_opt_clone_title">تثبيت نسخة ثانية بجانب الأصلية (موصى به)</string>
+    <string name="install_opt_clone_desc">يعدّل هوية الحزمة تلقائياً لتعمل النسخة المضغوطة بجانب الأصلية للمقارنة بدون حذف.</string>
+    <string name="install_opt_clone_action">تجهيز النسخة الثانية وتثبيتها</string>
+    <string name="install_opt_repacking">جاري تعديل الهوية وتوقيع الحزمة APK v2…</string>
+    <string name="split_bundle_badge">حزمة مقسمة (%1$d ملف APK)</string>
+    <string name="runtime_risk_static_lib_warn">تنبيه حماية التوقيع / مكتبة ثابتة (%1$s): التطبيقات التي تعتمد على مكتبات نظام محمية (مثل كروم و Trichrome) أو فحص توقيع داخلي قد تُغلق تلقائياً عند الفتح بعد إعادة التوقيع أو الاستنساخ.</string>
+
+    <!-- v3.0 Pro Engines -->
+    <string name="compat_title">فحص التوافق الذكي قبل الضغط</string>
+    <string name="compat_score">الجاهزية: %1$d/100</string>
+    <string name="compat_autofix_action">إصلاح الإعدادات بضغطة واحدة</string>
+    <string name="compat_tier_ready">جاهز للتشغيل المباشر</string>
+    <string name="compat_tier_fixable">قابل للإصلاح التلقائي</string>
+    <string name="compat_tier_protected">تطبيق نظام محمي</string>
+
+    <string name="opt_universal_merge">دمج الحزم المقسمة في APK واحد (Anti-Split)</string>
+    <string name="opt_universal_merge_desc">يدمج base مع ملفات splits (الأكواد والموارد والمكتبات) في ملف APK متكامل وموقّع.</string>
+    <string name="result_merged_universal">APK شامل مدمج</string>
+
+    <string name="opt_strip_shared_uid">تجريد android:sharedUserId لتجاوز قيود النظام</string>
+    <string name="opt_patch_static_lib">تحديث بصمة certDigest للمكتبات الثابتة</string>
+    <string name="opt_bundle_companion_libs">استنساخ وإعادة توقيع المكتبات المرافقة</string>
+    <string name="result_stripped_shared_uid">تم تجريد sharedUserId</string>
+    <string name="install_companion_libs_btn">تثبيت المكتبة المرافقة الموقّعة أولاً</string>
+    <string name="install_companion_and_app">تم تجهيز مكتبة مرافقة — ثبّتها أولاً أو عبر Shizuku تلقائياً.</string>
+
+    <string name="opt_locale_prune">تقليم اللغات غير المستخدمة (resources.arsc)</string>
+    <string name="opt_locale_prune_desc">يحذف جداول اللغات الزائدة مع الحفاظ على الموارد الافتراضية واللغات المختارة.</string>
+    <string name="locale_keep_chips_label">اللغات المُحتفظ بها:</string>
+    <string name="opt_image_crunch">ضغط الصور والأصول الذكي (PNG / WebP)</string>
+    <string name="opt_image_crunch_desc">إعادة ضغط عالية الجودة للصور الأكبر من 12KB مع استثناء 9-patch.</string>
+    <string name="result_locales_pruned">لغات مقلَّمة</string>
+    <string name="result_images_crunched">صور محسّنة</string>
+
+    <string name="clone_custom_label_hint">اسم مخصص للنسخة المستنسخة (اختياري)</string>
+    <string name="clone_tint_icon_toggle">إضافة شارة PF على أيقونة النسخة الثانية</string>
+
+    <string name="shizuku_title">جسر Shizuku المتقدم (بدون روت)</string>
+    <string name="shizuku_ready_shell">جسر Shizuku نشط • Shell (UID %1$d)</string>
+    <string name="shizuku_ready_root">جسر Shizuku نشط • Root (UID 0)</string>
+    <string name="shizuku_perm_required">خدمة Shizuku تعمل — امنح الصلاحية لتفعيل التثبيت المتقدم وتطبيقات النظام</string>
+    <string name="shizuku_not_running">Shizuku مثبّت — شغّل الخدمة عبر تصحيح الأخطاء اللاسلكي (Wireless Debugging)</string>
+    <string name="shizuku_not_installed">تطبيق Shizuku غير مثبت (اختياري لتثبيت تطبيقات النظام والإصدارات الأقدم)</string>
+    <string name="shizuku_grant_btn">منح صلاحية Shizuku</string>
+    <string name="shizuku_open_app_btn">فتح Shizuku / المطورين</string>
+    <string name="shizuku_refresh_btn">تحديث الحالة</string>
+    <string name="opt_prefer_shizuku">التثبيت المباشر عبر Shizuku (يدعم الرجوع -d)</string>
+    <string name="install_via_shizuku">تثبيت متقدم عبر Shizuku (-r -t -d)</string>
+    <string name="shizuku_uninstall_keep_data_btn">حذف عبر Shizuku (مع حفظ البيانات)</string>
+    <string name="shizuku_uninstall_system_btn">إزالة للمستخدم الحالي (--user 0)</string>
+    <string name="system_app_badge">نظام</string>
+
+    <!-- Multi-Backend Elevated Shell Orchestrator -->
+    <string name="bridge_multi_title">محركات الصلاحيات المتقدمة (متعددة)</string>
+    <string name="bridge_multi_desc">يقبل تلقائياً أدوات KernelSU و APatch و Magisk Root و Sui و Shizuku ويفحص Dhizuku.</string>
+    <string name="bridge_mode_auto">تلقائي ذكي</string>
+    <string name="bridge_mode_root">روت (su)</string>
+    <string name="bridge_mode_sui">Sui</string>
+    <string name="bridge_mode_shizuku">Shizuku</string>
+    <string name="bridge_active_label">المحرك النشط: %1$s</string>
+
+    <!-- Developers & Plugin SDK Hub (Settings Only) -->
+    <string name="dev_hub_card_title">الإضافات والمطورون (Plugin SDK)</string>
+    <string name="dev_hub_card_subtitle">واجهة SDK v%1$s • نظام الصلاحيات • مشروع تجريبي • توثيق كامل</string>
+    <string name="dev_hub_open_btn">فتح مركز الإضافات والمطورين</string>
+    <string name="dev_hub_tab_store">متجر الإضافات</string>
+    <string name="dev_hub_tab_plugins">المُثبَّتة</string>
+    <string name="dev_hub_tab_sdk">SDK والمشروع</string>
+    <string name="dev_hub_tab_examples">الواجهات والأمثلة</string>
+    <string name="dev_hub_tab_docs">التوثيق</string>
+    <string name="dev_import_manifest_btn">استيراد إضافة (.pfpak / .json)</string>
+    <string name="dev_export_sdk_btn">تصدير حزمة SDK + المشروع التجريبي (.zip)</string>
+    <string name="dev_run_sandbox_btn">تشغيل الإضافة</string>
+    <string name="dev_permissions_label">الصلاحيات الممنوحة (%1$d/%2$d)</string>
+    <string name="dev_sandbox_output_title">وحدة تحكم التجربة الحية (Sandbox)</string>
+    <string name="dev_notifications_feed_title">سجل إشعارات الإضافات</string>
+    <string name="dev_copy_code_btn">نسخ الكود</string>
+
+    <!-- متجر الإضافات، التعرف الذكي، والفحص الأمني -->
+    <string name="store_smart_match_title">التعرف الذكي التلقائي حسب الحزمة والعتاد</string>
+    <string name="store_smart_empty_hint">حمّل حزمة APK في المعالج أو راقب العتاد لإبراز الإضافات الأنسب تلقائياً.</string>
+    <string name="store_smart_refresh_btn">تحديث السياق</string>
+    <string name="store_import_bundle_btn">استيراد .pfpak / .json</string>
+    <string name="store_create_builder_btn">إنشاء وتوقيع .pfpak</string>
+    <string name="store_search_hint">ابحث في متجر الإضافات الموقّعة…</string>
+    <string name="store_verify_install_btn">فحص وتثبيت</string>
+    <string name="store_installed_badge">مثبّتة</string>
+    <string name="store_cat_all">الكل</string>
+    <string name="security_review_title">فحص الأمان والتوقيع الرقمي للإضافة</string>
+    <string name="security_review_score">درجة الأمان: %1$d/100 (%2$s)</string>
+    <string name="security_review_permissions">اعتماد الصلاحيات قبل التثبيت:</string>
+    <string name="security_review_confirm_btn">تأكيد التوقيع وتثبيت الإضافة</string>
+    <string name="security_review_blocked_btn">محظورة بواسطة الفحص الأمني</string>
+    <string name="builder_title">استوديو بناء وتوقيع أدوات .pfpak</string>
+    <string name="builder_sign_install_btn">توقيع وتثبيت فوري</string>
+    <string name="builder_sign_export_btn">توقيع وتصدير .pfpak</string>
+
+    <!-- تسميات مركز المطورين والإعدادات بالعربية -->
+    <string name="lang_system_title">لغة النظام الافتراضية</string>
+    <string name="lang_system_subtitle">لغة الجهاز</string>
+    <string name="dev_hub_badge_plugins_api">%1$d إضافات • API %2$d</string>
+    <string name="dev_hub_badge_perms_sdk">6 صلاحيات مقيدة • تصدير SDK بصيغة ZIP</string>
+    <string name="dev_sdk_header_title">حزمة Gradle SDK المستقلة v%1$s</string>
+    <string name="dev_sdk_header_desc">تتضمن عقود :pakforge-sdk القياسية بلغة Kotlin، والمشروع التجريبي :sample-plugin، ومخطط pakforge-plugin.json، ومدقق SemVer، والتوثيق الكامل.</string>
+    <string name="dev_sdk_tree_title">هيكل ملفات SDK والمشروع التجريبي (%1$d ملفات)</string>
+    <string name="dev_sdk_ref_manifest">نموذج pakforge-plugin.json المرجعي</string>
+    <string name="dev_apis_unified_title">واجهات الـ SDK الموحدة</string>
+    <string name="dev_apis_perm_label">الصلاحية المطلوبة: %1$s</string>
+    <string name="dev_clear_btn">مسح</string>
+    <string name="dev_sent_system_tray">أُرسل لإشعارات النظام</string>
+    <string name="dev_remove_plugin_cd">حذف الإضافة</string>
+    <string name="security_ecdsa_key_label">بصمة مفتاح ECDSA SHA-256: %1$s</string>
+    <string name="security_payload_sha_label">بصمة المحتوى SHA-256: %1$s…</string>
+    <string name="security_steps_count">%1$d خطوات</string>
+    <string name="builder_id_label">معرّف الإضافة (reverse-DNS)</string>
+    <string name="builder_name_label">اسم الأداة</string>
+    <string name="builder_version_label">الإصدار SemVer</string>
+    <string name="builder_author_label">الناشر / المطوّر</string>
+    <string name="builder_desc_label">الوصف</string>
+    <string name="builder_category_label">التصنيف</string>
+    <string name="builder_steps_label">خطوات التنفيذ الذكية</string>
+    <string name="builder_perms_label">الصلاحيات المصرح بها</string>
+    <string name="builder_rules_label">قواعد التعرف الذكي والضغط</string>
+    <string name="builder_rule_smart_splits">ذكي: حزم مقسمة</string>
+    <string name="builder_rule_smart_uid">ذكي: sharedUserId</string>
+    <string name="builder_rule_smart_ram">ذكي: ذاكرة منخفضة</string>
+    <string name="builder_rule_prune_locales">قاعدة: تقليم اللغات</string>
+    <string name="builder_rule_merge_splits">قاعدة: دمج شامل</string>
+    <string name="builder_rule_strip_uid">قاعدة: تجريد sharedUserId</string>
+    <string name="builder_signer_sha_label">مفتاح التوقيع SHA-256: %1$s</string>
+    <string name="builder_default_name">أداة التقليص الذكية</string>
+    <string name="builder_default_author">مطوّر مستقل</string>
+    <string name="builder_default_desc">أداة تحسين وتشخيص متعددة الخطوات موقّعة بمفتاح ECDSA P-256.</string>
+</resources>

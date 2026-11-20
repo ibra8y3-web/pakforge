@@ -1,0 +1,6 @@
+{
+  "name": "PakForge",
+  "description": "Smart lossless APK & package compression engine with entropy analysis, 4-byte ZipAlign & resources.arsc safety guard, and live device RAM/CPU telemetry.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

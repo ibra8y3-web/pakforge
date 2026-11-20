@@ -1,0 +1,202 @@
+name: PakForge Android CI & Release
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Unit & Robolectric Compose Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK Licenses
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
+
+      - name: Set up Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
+
+      - name: Restore Debug Keystore
+        run: |
+          if [ -f debug.keystore.base64 ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
+          elif [ ! -f debug.keystore ]; then
+            keytool -genkeypair -v -keystore debug.keystore -storepass android \
+              -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+              -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          fi
+
+      - name: Run Unit & Robolectric UI Tests
+        run: |
+          if [ -x ./gradlew ]; then
+            ./gradlew :app:testDebugUnitTest --stacktrace
+          else
+            gradle :app:testDebugUnitTest --stacktrace
+          fi
+
+      - name: Clean Up Ephemeral Debug Keystore
+        if: always()
+        run: rm -f debug.keystore
+
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-debug
+          path: app/build/reports/tests/testDebugUnitTest/
+          if-no-files-found: ignore
+
+  build-apks:
+    name: Build Debug & Signed Release Artifacts
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK Licenses
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
+
+      - name: Set up Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
+
+      - name: Restore Debug Keystore
+        run: |
+          if [ -f debug.keystore.base64 ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
+          elif [ ! -f debug.keystore ]; then
+            keytool -genkeypair -v -keystore debug.keystore -storepass android \
+              -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+              -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          fi
+
+      - name: Build Debug APK
+        run: |
+          if [ -x ./gradlew ]; then
+            ./gradlew :app:assembleDebug --stacktrace
+          else
+            gradle :app:assembleDebug --stacktrace
+          fi
+
+      - name: Prepare Release Signing Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          SECRET_STORE_PASS: ${{ secrets.STORE_PASSWORD }}
+          SECRET_KEY_PASS: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ] && [ -n "$SECRET_STORE_PASS" ] && [ -n "$SECRET_KEY_PASS" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > my-upload-key.jks
+            echo "KEYSTORE_PATH=${PWD}/my-upload-key.jks" >> "$GITHUB_ENV"
+            echo "STORE_PASSWORD=$SECRET_STORE_PASS" >> "$GITHUB_ENV"
+            echo "KEY_PASSWORD=$SECRET_KEY_PASS" >> "$GITHUB_ENV"
+            echo "RELEASE_SIGN_MODE=signed" >> "$GITHUB_ENV"
+          else
+            keytool -genkeypair -v -keystore my-upload-key.jks -storepass pakforge_ci_pass \
+              -alias upload -keypass pakforge_ci_pass -keyalg RSA -keysize 2048 \
+              -validity 3650 -dname "CN=PakForge CI,OU=Mobile,O=PakForge,C=US"
+            echo "KEYSTORE_PATH=${PWD}/my-upload-key.jks" >> "$GITHUB_ENV"
+            echo "STORE_PASSWORD=pakforge_ci_pass" >> "$GITHUB_ENV"
+            echo "KEY_PASSWORD=pakforge_ci_pass" >> "$GITHUB_ENV"
+            echo "RELEASE_SIGN_MODE=ci-ephemeral" >> "$GITHUB_ENV"
+          fi
+
+      - name: Build Release APK & App Bundle (AAB)
+        run: |
+          if [ -x ./gradlew ]; then
+            ./gradlew :app:assembleRelease :app:bundleRelease --stacktrace
+          else
+            gradle :app:assembleRelease :app:bundleRelease --stacktrace
+          fi
+
+      - name: Package Artifacts & SHA-256 Checksums
+        run: |
+          mkdir -p release-dist
+          DEBUG_APK=$(find app/build/outputs/apk/debug -maxdepth 2 -name "*.apk" | head -n 1)
+          RELEASE_APK=$(find app/build/outputs/apk/release -maxdepth 2 -name "*.apk" | head -n 1)
+          RELEASE_AAB=$(find app/build/outputs/bundle/release -maxdepth 2 -name "*.aab" | head -n 1)
+
+          cp "$DEBUG_APK" "release-dist/PakForge-debug.apk"
+          cp "$RELEASE_APK" "release-dist/PakForge-release-${RELEASE_SIGN_MODE}.apk"
+          cp "$RELEASE_AAB" "release-dist/PakForge-release-${RELEASE_SIGN_MODE}.aab"
+
+          (cd release-dist && sha256sum * > SHA256SUMS.txt)
+          ls -lh release-dist
+
+      - name: Clean Up Keystores
+        if: always()
+        run: rm -f my-upload-key.jks debug.keystore
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: PakForge-debug-apk
+          path: release-dist/PakForge-debug.apk
+
+      - name: Upload Release APK & AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: PakForge-release-artifacts
+          path: |
+            release-dist/PakForge-release-*.apk
+            release-dist/PakForge-release-*.aab
+            release-dist/SHA256SUMS.txt
+
+  github-release:
+    name: Publish GitHub Release on Tag
+    needs: build-apks
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Debug Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: PakForge-debug-apk
+          path: dist
+
+      - name: Download Release Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: PakForge-release-artifacts
+          path: dist
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: dist/*
