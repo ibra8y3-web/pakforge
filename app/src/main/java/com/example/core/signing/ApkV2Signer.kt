@@ -22,6 +22,10 @@ import java.security.spec.X509EncodedKeySpec
 
 class ApkV2Signer(private val context: Context) {
 
+    private companion object {
+        const val COPY_CHUNK = 1024 * 1024
+    }
+
     data class SigningIdentity(
         val privateKey: PrivateKey,
         val publicKeyEncoded: ByteArray,
@@ -66,109 +70,140 @@ class ApkV2Signer(private val context: Context) {
         return certDigest.joinToString(":") { "%02X".format(it) }
     }
 
+    /**
+     * Streaming APK Signature Scheme v2 signer.
+     * The APK is NEVER loaded fully into memory: only the tail (EOCD + central directory)
+     * is read into RAM, everything else is streamed through a 1 MB buffer.
+     */
     fun signApkV2(inputApk: File, outputApk: File): String {
         val identity = getOrCreateIdentity()
-        val apkBytes = inputApk.readBytes()
-        val eocdOffset = findEocdOffset(apkBytes)
-        require(eocdOffset >= 0) { "Invalid ZIP/APK: EOCD not found" }
 
-        val eocdBuf = ByteBuffer.wrap(apkBytes, eocdOffset, apkBytes.size - eocdOffset)
-            .slice()
-            .order(ByteOrder.LITTLE_ENDIAN)
-        val cdOffset = eocdBuf.getInt(16).toLong() and 0xFFFFFFFFL
-        require(cdOffset in 0L..eocdOffset.toLong()) { "Invalid ZIP/APK central directory offset" }
+        RandomAccessFile(inputApk, "r").use { raf ->
+            val fileLen = raf.length()
+            require(fileLen in 22L..0xFFFFFFFFL) { "Invalid or unsupported APK size" }
 
-        // Compute APK Signature Scheme v2 CHUNKED_SHA256 digest (0x0103)
-        val contentDigest = computeV2ChunkedSha256(apkBytes, cdOffset.toInt(), eocdOffset)
+            // 1) Locate EOCD by reading only the last 64 KB + 22 bytes
+            val tailLen = minOf(fileLen, 65558L).toInt()
+            val tail = ByteArray(tailLen)
+            raf.seek(fileLen - tailLen)
+            raf.readFully(tail)
+            val eocdInTail = findEocdOffset(tail)
+            require(eocdInTail >= 0) { "Invalid ZIP/APK: EOCD not found" }
+            val eocdOffset = (fileLen - tailLen) + eocdInTail
 
-        // Build SignedData
-        val digestEntry = ByteArrayOutputStream().apply {
-            writeIntLE(0x0103) // SIGNATURE_RSA_PKCS1_V1_5_WITH_SHA256
-            writeLengthPrefixed(contentDigest)
-        }.toByteArray()
+            val eocdBytes = tail.copyOfRange(eocdInTail, tail.size)
+            val cdOffset = ByteBuffer.wrap(eocdBytes).order(ByteOrder.LITTLE_ENDIAN)
+                .getInt(16).toLong() and 0xFFFFFFFFL
+            require(cdOffset in 0L..eocdOffset) { "Invalid ZIP/APK central directory offset" }
 
-        val digestsSeq = lengthPrefixed(digestEntry)
-        val certsSeq = lengthPrefixed(identity.certDer)
-        val additionalAttrs = ByteArray(0)
+            // 2) Chunked SHA-256 content digest (streamed)
+            val contentDigest = computeV2ChunkedSha256(raf, cdOffset, eocdOffset, fileLen)
 
-        val signedData = ByteArrayOutputStream().apply {
-            writeLengthPrefixed(digestsSeq)
-            writeLengthPrefixed(certsSeq)
-            writeLengthPrefixed(additionalAttrs)
-        }.toByteArray()
+            val digestEntry = ByteArrayOutputStream().apply {
+                writeIntLE(0x0103)
+                writeLengthPrefixed(contentDigest)
+            }.toByteArray()
 
-        val signatureBytes = Signature.getInstance("SHA256withRSA").apply {
-            initSign(identity.privateKey)
-            update(signedData)
-        }.sign()
+            val digestsSeq = lengthPrefixed(digestEntry)
+            val certsSeq = lengthPrefixed(identity.certDer)
+            val additionalAttrs = ByteArray(0)
 
-        val signatureEntry = ByteArrayOutputStream().apply {
-            writeIntLE(0x0103)
-            writeLengthPrefixed(signatureBytes)
-        }.toByteArray()
+            val signedData = ByteArrayOutputStream().apply {
+                writeLengthPrefixed(digestsSeq)
+                writeLengthPrefixed(certsSeq)
+                writeLengthPrefixed(additionalAttrs)
+            }.toByteArray()
 
-        val signerBlock = ByteArrayOutputStream().apply {
-            writeLengthPrefixed(signedData)
-            writeLengthPrefixed(lengthPrefixed(signatureEntry))
-            writeLengthPrefixed(identity.publicKeyEncoded)
-        }.toByteArray()
+            val signatureBytes = Signature.getInstance("SHA256withRSA").apply {
+                initSign(identity.privateKey)
+                update(signedData)
+            }.sign()
 
-        val v2SchemeValue = lengthPrefixed(lengthPrefixed(signerBlock))
+            val signatureEntry = ByteArrayOutputStream().apply {
+                writeIntLE(0x0103)
+                writeLengthPrefixed(signatureBytes)
+            }.toByteArray()
 
-        // Build APK Signing Block
-        val pairLen = 4L + v2SchemeValue.size.toLong()
-        val blockSizeField = (8L + pairLen) + 8L + 16L
-        val signingBlock = ByteArrayOutputStream().apply {
-            writeLongLE(blockSizeField)
-            writeLongLE(pairLen)
-            writeIntLE(0x7109871a) // APK_SIGNATURE_SCHEME_V2_BLOCK_ID
-            write(v2SchemeValue)
-            writeLongLE(blockSizeField)
-            write("APK Sig Block 42".toByteArray(StandardCharsets.US_ASCII))
-        }.toByteArray()
+            val signerBlock = ByteArrayOutputStream().apply {
+                writeLengthPrefixed(signedData)
+                writeLengthPrefixed(lengthPrefixed(signatureEntry))
+                writeLengthPrefixed(identity.publicKeyEncoded)
+            }.toByteArray()
 
-        val newCdOffset = cdOffset + signingBlock.size.toLong()
-        val patchedEocd = apkBytes.copyOfRange(eocdOffset, apkBytes.size)
-        ByteBuffer.wrap(patchedEocd).order(ByteOrder.LITTLE_ENDIAN).putInt(16, newCdOffset.toInt())
+            val v2SchemeValue = lengthPrefixed(lengthPrefixed(signerBlock))
 
-        FileOutputStream(outputApk).use { out ->
-            out.write(apkBytes, 0, cdOffset.toInt())
-            out.write(signingBlock)
-            out.write(apkBytes, cdOffset.toInt(), eocdOffset - cdOffset.toInt())
-            out.write(patchedEocd)
+            val pairLen = 4L + v2SchemeValue.size.toLong()
+            val blockSizeField = (8L + pairLen) + 8L + 16L
+            val signingBlock = ByteArrayOutputStream().apply {
+                writeLongLE(blockSizeField)
+                writeLongLE(pairLen)
+                writeIntLE(0x7109871a)
+                write(v2SchemeValue)
+                writeLongLE(blockSizeField)
+                write("APK Sig Block 42".toByteArray(StandardCharsets.US_ASCII))
+            }.toByteArray()
+
+            val newCdOffset = cdOffset + signingBlock.size.toLong()
+            require(newCdOffset <= 0xFFFFFFFFL) { "APK too large for ZIP32 after signing" }
+            ByteBuffer.wrap(eocdBytes).order(ByteOrder.LITTLE_ENDIAN).putInt(16, newCdOffset.toInt())
+
+            // 3) Stream-copy to output: [0,cd) + signingBlock + [cd,eocd) + patched EOCD
+            java.io.BufferedOutputStream(FileOutputStream(outputApk), COPY_CHUNK).use { out ->
+                val buf = ByteArray(COPY_CHUNK)
+                fun copyRange(from: Long, to: Long) {
+                    raf.seek(from)
+                    var remaining = to - from
+                    while (remaining > 0) {
+                        val n = raf.read(buf, 0, minOf(buf.size.toLong(), remaining).toInt())
+                        if (n <= 0) throw java.io.EOFException("Unexpected end of APK while signing")
+                        out.write(buf, 0, n)
+                        remaining -= n
+                    }
+                }
+                copyRange(0L, cdOffset)
+                out.write(signingBlock)
+                copyRange(cdOffset, eocdOffset)
+                out.write(eocdBytes)
+            }
         }
 
         val certDigest = MessageDigest.getInstance("SHA-256").digest(identity.certDer)
         return certDigest.joinToString(":") { "%02X".format(it) }
     }
 
-    private fun computeV2ChunkedSha256(apkBytes: ByteArray, cdOffset: Int, eocdOffset: Int): ByteArray {
+    private fun computeV2ChunkedSha256(
+        raf: RandomAccessFile,
+        cdOffset: Long,
+        eocdOffset: Long,
+        fileLen: Long
+    ): ByteArray {
         val chunkDigests = ArrayList<ByteArray>()
-        val chunkSize = 1024 * 1024 // 1 MB
+        val chunkSize = 1024 * 1024
+        val buf = ByteArray(chunkSize)
 
-        fun digestRange(start: Int, end: Int) {
+        fun digestRange(start: Long, end: Long) {
             var pos = start
             while (pos < end) {
-                val len = minOf(chunkSize, end - pos)
+                val len = minOf(chunkSize.toLong(), end - pos).toInt()
+                raf.seek(pos)
+                raf.readFully(buf, 0, len)
                 val md = MessageDigest.getInstance("SHA-256")
                 md.update(0xA5.toByte())
                 md.update(intToBytesLE(len))
-                md.update(apkBytes, pos, len)
+                md.update(buf, 0, len)
                 chunkDigests.add(md.digest())
                 pos += len
             }
         }
 
-        digestRange(0, cdOffset)
+        digestRange(0L, cdOffset)
         digestRange(cdOffset, eocdOffset)
-        digestRange(eocdOffset, apkBytes.size)
+        digestRange(eocdOffset, fileLen)
 
         val rootMd = MessageDigest.getInstance("SHA-256")
         rootMd.update(0x5A.toByte())
         rootMd.update(intToBytesLE(chunkDigests.size))
-        for (digest in chunkDigests) {
-            rootMd.update(digest)
-        }
+        for (digest in chunkDigests) rootMd.update(digest)
         return rootMd.digest()
     }
 
@@ -182,9 +217,7 @@ class ApkV2Signer(private val context: Context) {
             ) {
                 val commentLen = ((bytes[i + 20].toInt() and 0xFF) or
                     ((bytes[i + 21].toInt() and 0xFF) shl 8))
-                if (i + 22 + commentLen == bytes.size) {
-                    return i
-                }
+                if (i + 22 + commentLen == bytes.size) return i
             }
         }
         return -1

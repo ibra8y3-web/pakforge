@@ -71,7 +71,7 @@ fun InspectorScreen(
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(12.dp),
             contentAlignment = Alignment.Center
         ) {
             Card(
@@ -81,9 +81,9 @@ fun InspectorScreen(
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
             ) {
                 Column(
-                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 28.dp),
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     ForgeEmptyIconBadge(icon = Icons.Rounded.Code)
                     Text(
@@ -114,8 +114,8 @@ fun InspectorScreen(
             modifier = Modifier
                 .widthIn(max = 880.dp)
                 .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             OutlinedTextField(
                 colors = forgeFieldColors(),
@@ -140,7 +140,7 @@ fun InspectorScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 FilterChip(
                     selected = selectedCategory == null,
@@ -165,7 +165,7 @@ fun InspectorScreen(
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
                 contentPadding = PaddingValues(bottom = 20.dp)
             ) {
                 item(key = "security_audit_header") {
@@ -192,12 +192,12 @@ private fun SecurityAndBloatAuditCard(inspection: PackageInspectionResult) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(14.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+                .padding(10.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Security,
@@ -212,8 +212,8 @@ private fun SecurityAndBloatAuditCard(inspection: PackageInspectionResult) {
             }
 
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 val dupCount = inspection.totalDuplicateFilesCount
                 Surface(
@@ -221,9 +221,9 @@ private fun SecurityAndBloatAuditCard(inspection: PackageInspectionResult) {
                     color = if (dupCount > 0) TelemetryWarning.copy(alpha = 0.15f) else TelemetrySuccess.copy(alpha = 0.15f)
                 ) {
                     Row(
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.ContentCopy,
@@ -253,9 +253,9 @@ private fun SecurityAndBloatAuditCard(inspection: PackageInspectionResult) {
                         color = if (audit.isDebuggable) TelemetryError.copy(alpha = 0.15f) else TelemetrySuccess.copy(alpha = 0.15f)
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Icon(
                                 imageVector = if (audit.isDebuggable) Icons.Rounded.GppMaybe else Icons.Rounded.GppGood,
@@ -287,7 +287,7 @@ private fun SecurityAndBloatAuditCard(inspection: PackageInspectionResult) {
                             ),
                             style = MaterialTheme.typography.labelSmall,
                             color = if (audit.dangerousPermissions.isNotEmpty()) TelemetryWarning else MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                         )
                     }
 
@@ -300,7 +300,7 @@ private fun SecurityAndBloatAuditCard(inspection: PackageInspectionResult) {
                                 text = stringResource(R.string.audit_backup_flag),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                             )
                         }
                     }
@@ -363,8 +363,8 @@ private fun EntryInspectorCard(entry: EntryAnalysis) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),

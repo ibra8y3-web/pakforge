@@ -203,14 +203,14 @@ fun ForgeScreen(
         Row(
             modifier = modifier
                 .fillMaxSize()
-                .padding(horizontal = 20.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Column(
                 modifier = Modifier
                     .weight(0.46f)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 HeroForgeBanner(telemetry = telemetry)
                 SourcePickerCard(
@@ -250,7 +250,7 @@ fun ForgeScreen(
                 modifier = Modifier
                     .weight(0.54f)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 PipelineStagePanel(
                     pipelineState = pipelineState,
@@ -276,8 +276,8 @@ fun ForgeScreen(
                     .widthIn(max = 680.dp)
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 HeroForgeBanner(telemetry = telemetry)
                 SourcePickerCard(
@@ -343,18 +343,18 @@ private fun SourcePickerCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(10.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Button(
                     onClick = onPickFileClick,
                     modifier = Modifier
                         .weight(1f)
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("upload_package_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -375,7 +375,7 @@ private fun SourcePickerCard(
                     onClick = onPickInstalledClick,
                     modifier = Modifier
                         .weight(1f)
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("installed_apps_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -397,7 +397,7 @@ private fun SourcePickerCard(
                 onClick = onSelfTestClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 48.dp)
+                    .heightIn(min = 40.dp)
                     .testTag("self_test_button"),
                 shape = MaterialTheme.shapes.medium
             ) {
@@ -436,9 +436,9 @@ private fun PipelineStagePanel(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 28.dp),
+                        .padding(horizontal = 10.dp, vertical = 10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     com.example.ui.components.ForgeEmptyIconBadge(icon = Icons.Rounded.Shield)
                     Text(
@@ -466,9 +466,9 @@ private fun PipelineStagePanel(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(20.dp),
+                        .padding(12.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     CircularProgressIndicator(modifier = Modifier.size(32.dp))
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -527,12 +527,12 @@ private fun PipelineStagePanel(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.ErrorOutline,
@@ -571,23 +571,23 @@ private fun PackageBlueprintCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 DrawableAppIcon(
                     drawable = inspection.appIcon,
                     contentDescription = inspection.displayName,
-                    size = 48.dp
+                    size = 30.dp
                 )
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = inspection.displayName,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -608,8 +608,8 @@ private fun PackageBlueprintCard(
 
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 MetricChip(label = stringResource(R.string.result_before), value = formatBytes(inspection.totalArchiveBytes))
                 MetricChip(label = stringResource(R.string.predicted_output_label), value = formatBytes(inspection.predictedOutputBytes))
@@ -662,10 +662,10 @@ private fun PackageBlueprintCard(
 @Composable
 private fun MetricChip(label: String, value: String) {
     Surface(
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(6.dp),
         color = MaterialTheme.colorScheme.surfaceVariant
     ) {
-        Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) {
+        Column(modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)) {
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelSmall,
@@ -742,8 +742,8 @@ private fun CompressionReportCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(10.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -752,16 +752,16 @@ private fun CompressionReportCard(
             ) {
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Surface(
                         shape = RoundedCornerShape(8.dp),
                         color = TelemetrySuccess.copy(alpha = 0.16f)
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.VerifiedUser,
@@ -922,8 +922,8 @@ private fun CompressionReportCard(
 
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 MetricChip(label = stringResource(R.string.result_elapsed), value = "${report.elapsedMs} ms")
                 MetricChip(label = stringResource(R.string.result_peak_ram), value = "${report.peakHeapMb} MB")
@@ -944,13 +944,13 @@ private fun CompressionReportCard(
             }
 
             Surface(
-                shape = RoundedCornerShape(10.dp),
+                shape = RoundedCornerShape(6.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp),
+                        .padding(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
@@ -970,7 +970,7 @@ private fun CompressionReportCard(
 
             if (report.companionLibraryOutputs.isNotEmpty()) {
                 Surface(
-                    shape = RoundedCornerShape(10.dp),
+                    shape = RoundedCornerShape(6.dp),
                     color = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
                     border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
                 ) {
@@ -978,7 +978,7 @@ private fun CompressionReportCard(
                         text = stringResource(R.string.install_companion_and_app),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(10.dp)
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
             }
@@ -993,7 +993,7 @@ private fun CompressionReportCard(
                     enabled = installState !is ApkInstallUiState.PreparingSession,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 52.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("install_apk_button"),
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(
@@ -1021,7 +1021,7 @@ private fun CompressionReportCard(
                     onClick = onOpenInstallOptions,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 48.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("install_options_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -1067,14 +1067,14 @@ private fun CompressionReportCard(
                         )
                     }
                     Surface(
-                        shape = RoundedCornerShape(10.dp),
+                        shape = RoundedCornerShape(6.dp),
                         color = bgColor
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(10.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                                .padding(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             Text(
                                 text = msg,
@@ -1086,7 +1086,7 @@ private fun CompressionReportCard(
                                     onClick = onOpenInstallOptions,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .heightIn(min = 48.dp)
+                                        .heightIn(min = 40.dp)
                                         .testTag("install_recovery_button")
                                 ) {
                                     Text(text = stringResource(R.string.action_install_options))
@@ -1099,14 +1099,14 @@ private fun CompressionReportCard(
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 FilledTonalButton(
                     onClick = { onSaveOutputClick(report.outputFileName) },
                     shape = MaterialTheme.shapes.medium,
                     modifier = Modifier
                         .weight(1f)
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("save_output_button")
                 ) {
                     Icon(
@@ -1123,7 +1123,7 @@ private fun CompressionReportCard(
                     shape = MaterialTheme.shapes.medium,
                     modifier = Modifier
                         .weight(1f)
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("share_output_button")
                 ) {
                     Icon(
@@ -1144,7 +1144,7 @@ private fun CompressionReportCard(
                     shape = MaterialTheme.shapes.medium,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 48.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("copy_json_audit_button")
                 ) {
                     Icon(
@@ -1195,12 +1195,12 @@ private fun EngineControlsCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(10.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 com.example.ui.components.ForgeIconTile(
                     icon = Icons.Rounded.Tune,
@@ -1260,7 +1260,7 @@ private fun EngineControlsCard(
             )
 
             AnimatedVisibility(visible = config.installIdentityMode == InstallIdentityMode.CLONE_NEW_PACKAGE) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     OutlinedTextField(
                         colors = forgeFieldColors(),
                         value = config.cloneSuffix,
@@ -1322,7 +1322,7 @@ private fun EngineControlsCard(
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.DeveloperBoard,
@@ -1343,8 +1343,8 @@ private fun EngineControlsCard(
                 }
 
                 FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     FilterChip(
                         selected = config.allowedAbis.isEmpty(),
@@ -1385,15 +1385,15 @@ private fun EngineControlsCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 AnimatedVisibility(visible = config.pruneUnusedLocales) {
-                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             text = stringResource(R.string.locale_keep_chips_label),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.primary
                         )
                         FlowRow(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             detectedLocales.take(18).forEach { loc ->
                                 FilterChip(
@@ -1483,7 +1483,7 @@ private fun EngineControlsCard(
                 enabled = canCompress && !isCompressing,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 54.dp)
+                    .heightIn(min = 40.dp)
                     .testTag("compress_now_button"),
                 shape = MaterialTheme.shapes.medium,
                 colors = ButtonDefaults.buttonColors(
@@ -1539,9 +1539,9 @@ private fun ProfileOptionRow(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 14.dp, vertical = 12.dp),
+                .padding(horizontal = 10.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -1622,7 +1622,7 @@ private fun InstalledAppsModalSheet(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .padding(bottom = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
                 text = stringResource(R.string.picker_installed_title),
@@ -1656,7 +1656,7 @@ private fun InstalledAppsModalSheet(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(max = 420.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
                     contentPadding = PaddingValues(vertical = 4.dp)
                 ) {
                     items(filtered, key = { it.packageName }) { item ->
@@ -1672,14 +1672,14 @@ private fun InstalledAppsModalSheet(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(12.dp),
+                                    .padding(8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 DrawableAppIcon(
                                     drawable = item.icon,
                                     contentDescription = item.appName,
-                                    size = 40.dp
+                                    size = 32.dp
                                 )
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
@@ -1697,7 +1697,7 @@ private fun InstalledAppsModalSheet(
                                     )
                                     if (item.isSplitBundle || item.isSystemApp) {
                                         Spacer(modifier = Modifier.height(4.dp))
-                                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                             if (item.isSplitBundle) {
                                                 Surface(
                                                     shape = RoundedCornerShape(6.dp),
@@ -1771,7 +1771,7 @@ private fun InstallOptionsModalSheet(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp)
                 .padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
                 text = stringResource(R.string.install_sheet_title),
@@ -1797,7 +1797,7 @@ private fun InstallOptionsModalSheet(
                     enabled = !isRepackingClone,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 48.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("install_companion_libs_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -1811,7 +1811,7 @@ private fun InstallOptionsModalSheet(
                     enabled = !isRepackingClone,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("install_via_shizuku_button"),
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(
@@ -1826,13 +1826,13 @@ private fun InstallOptionsModalSheet(
                 if ((sheetState.isOriginalInstalled || sheetState.isTargetInstalled) && targetForUninstall != null) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         OutlinedButton(
                             onClick = { onChooseUninstallViaShizuku(targetForUninstall, true) },
                             modifier = Modifier
                                 .weight(1f)
-                                .heightIn(min = 48.dp)
+                                .heightIn(min = 40.dp)
                                 .testTag("shizuku_uninstall_keep_data_button")
                         ) {
                             Text(
@@ -1845,7 +1845,7 @@ private fun InstallOptionsModalSheet(
                             onClick = { onChooseUninstallViaShizuku(targetForUninstall, false) },
                             modifier = Modifier
                                 .weight(1f)
-                                .heightIn(min = 48.dp)
+                                .heightIn(min = 40.dp)
                                 .testTag("shizuku_uninstall_system_button")
                         ) {
                             Text(
@@ -1873,12 +1873,12 @@ private fun InstallOptionsModalSheet(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(14.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.InstallMobile,
@@ -1927,12 +1927,12 @@ private fun InstallOptionsModalSheet(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(14.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.DeleteOutline,
@@ -1975,12 +1975,12 @@ private fun InstallOptionsModalSheet(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(14.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.Apps,
@@ -2027,7 +2027,7 @@ private fun InstallOptionsModalSheet(
                         enabled = !isRepackingClone,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 48.dp)
+                            .heightIn(min = 40.dp)
                             .testTag("install_opt_clone_button"),
                         shape = MaterialTheme.shapes.medium
                     ) {
@@ -2064,7 +2064,7 @@ private fun RuntimeRiskBanner(risks: List<String>) {
         }
     }
     Surface(
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(6.dp),
         color = TelemetryWarning.copy(alpha = 0.14f),
         border = BorderStroke(1.dp, TelemetryWarning.copy(alpha = 0.45f)),
         modifier = Modifier.testTag("runtime_risk_warning_banner")
@@ -2072,8 +2072,8 @@ private fun RuntimeRiskBanner(risks: List<String>) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.Top
         ) {
             Icon(

@@ -115,8 +115,8 @@ fun SettingsScreen(
                 .widthIn(max = 760.dp)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             PrivilegedBridgeMultiCard(
                 status = shizukuStatus,
@@ -137,8 +137,8 @@ fun SettingsScreen(
                 modifier = Modifier.testTag("settings_dev_hub_card")
             ) {
                 FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     ForgePill(
                         text = stringResource(R.string.dev_hub_badge_plugins_api, plugins.size, PakForgeSdkSpec.HOST_API_LEVEL),
@@ -157,7 +157,7 @@ fun SettingsScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("open_dev_hub_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -179,8 +179,8 @@ fun SettingsScreen(
             ) {
                 FlowRow(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     SupportedLanguages.forEach { lang ->
                         val isSelected = preferences.languageCode == lang.code
@@ -208,7 +208,7 @@ fun SettingsScreen(
                             Row(
                                 modifier = Modifier.padding(horizontal = 14.dp, vertical = 9.dp),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
                                 if (isSelected) {
                                     Icon(
@@ -248,7 +248,7 @@ fun SettingsScreen(
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     ThemeModeTile(
                         label = stringResource(R.string.theme_dark),
@@ -344,7 +344,7 @@ private fun ThemeModeTile(
                 .fillMaxWidth()
                 .padding(vertical = 14.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(6.dp)
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
                 imageVector = icon,

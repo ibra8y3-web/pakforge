@@ -77,11 +77,11 @@ private val LightColorScheme = lightColorScheme(
 )
 
 val PakForgeShapes = Shapes(
-    extraSmall = RoundedCornerShape(14.dp),
-    small = RoundedCornerShape(12.dp),
-    medium = RoundedCornerShape(18.dp),
-    large = RoundedCornerShape(24.dp),
-    extraLarge = RoundedCornerShape(32.dp)
+    extraSmall = RoundedCornerShape(6.dp),
+    small = RoundedCornerShape(8.dp),
+    medium = RoundedCornerShape(10.dp),
+    large = RoundedCornerShape(12.dp),
+    extraLarge = RoundedCornerShape(16.dp)
 )
 
 @Composable

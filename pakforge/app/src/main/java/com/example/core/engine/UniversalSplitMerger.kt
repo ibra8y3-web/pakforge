@@ -271,6 +271,8 @@ internal object UniversalSplitMerger {
         )
     }
 
+    private val STREAM_THRESHOLD_BYTES = 16L * 1024L * 1024L
+
     private fun writeEntrySmart(
         zip: ZipFile,
         srcEntry: ZipEntry,
@@ -282,6 +284,11 @@ internal object UniversalSplitMerger {
     ): Pair<Boolean, Boolean> {
         val lower = outPath.lowercase(Locale.US)
         val isNativeSo = lower.startsWith("lib/") && lower.endsWith(".so")
+        val needsBytes = (config.optimizeLargeImages && AssetImageOptimizer.isOptimizableImagePath(outPath)) ||
+            (isCloning && config.tintCloneIcon && CloneIconStyler.isLauncherPng(outPath))
+        if (!needsBytes && srcEntry.size > STREAM_THRESHOLD_BYTES) {
+            return writeLargeEntryStreaming(zip, srcEntry, outPath, zos, countingOut, config, isNativeSo, lower)
+        }
         val rawBytes = zip.getInputStream(srcEntry).use { it.readBytes() }
 
         var payload = rawBytes
@@ -339,6 +346,62 @@ internal object UniversalSplitMerger {
             zos.closeEntry()
             false to optimizedImg
         }
+    }
+
+    private fun writeLargeEntryStreaming(
+        zip: ZipFile,
+        srcEntry: ZipEntry,
+        outPath: String,
+        zos: TunedZipOutputStream,
+        countingOut: CountingOut,
+        config: CompressionConfig,
+        isNativeSo: Boolean,
+        lower: String
+    ): Pair<Boolean, Boolean> {
+        val buf = ByteArray(64 * 1024)
+        val isMedia = isMediaExt(lower)
+        val store = (isNativeSo && srcEntry.method == ZipEntry.STORED) || (config.smartEntropyBypass && isMedia)
+        val outEntry = ZipEntry(outPath).apply { time = srcEntry.time }
+        if (store) {
+            val crc = CRC32()
+            var size = 0L
+            zip.getInputStream(srcEntry).use { input ->
+                while (true) {
+                    val n = input.read(buf)
+                    if (n <= 0) break
+                    crc.update(buf, 0, n); size += n
+                }
+            }
+            outEntry.method = ZipEntry.STORED
+            outEntry.size = size
+            outEntry.compressedSize = size
+            outEntry.crc = crc.value
+            val align = if (isNativeSo) 16384 else 4
+            zos.flush()
+            val nameLen = outPath.toByteArray(StandardCharsets.UTF_8).size
+            val dataOffset = countingOut.bytesWritten + 30L + nameLen
+            val rem = (dataOffset % align).toInt()
+            val pad = if (rem == 0) 0 else align - rem
+            if (pad > 0) outEntry.extra = ByteArray(pad)
+        } else {
+            val level = when (config.profile) {
+                CompressionProfile.ULTRA_SHRINK -> Deflater.BEST_COMPRESSION
+                CompressionProfile.LOW_RESOURCE_ECO -> 4
+                CompressionProfile.ZERO_RISK_BALANCED -> Deflater.DEFAULT_COMPRESSION
+            }
+            zos.setDeflateParams(level, Deflater.DEFAULT_STRATEGY)
+            outEntry.method = ZipEntry.DEFLATED
+        }
+        zos.putNextEntry(outEntry)
+        zip.getInputStream(srcEntry).use { input ->
+            while (true) {
+                val n = input.read(buf)
+                if (n <= 0) break
+                zos.write(buf, 0, n)
+            }
+        }
+        zos.closeEntry()
+        return (store && config.smartEntropyBypass && isMedia) to false
     }
 
     private fun extractAbi(path: String): String? {

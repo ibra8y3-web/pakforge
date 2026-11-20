@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.R
 import com.example.core.engine.CompatibilityTier
@@ -49,6 +52,7 @@ import com.example.ui.theme.TelemetryError
 import com.example.ui.theme.TelemetrySuccess
 import com.example.ui.theme.TelemetryWarning
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CompatibilityReportCard(
     report: PackageCompatibilityReport,
@@ -77,41 +81,43 @@ fun CompatibilityReportCard(
         modifier = modifier
             .fillMaxWidth()
             .testTag("compatibility_report_card"),
-        shape = RoundedCornerShape(14.dp),
+        shape = RoundedCornerShape(8.dp),
         color = tierColor.copy(alpha = 0.08f),
         border = BorderStroke(1.dp, tierColor.copy(alpha = 0.45f))
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+                .padding(6.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Row(
+            FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.weight(1f)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Icon(
                         imageVector = tierIcon,
                         contentDescription = null,
                         tint = tierColor,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(16.dp)
                     )
                     Text(
                         text = stringResource(R.string.compat_title),
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onSurface
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
                 Surface(
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(6.dp),
                     color = tierColor.copy(alpha = 0.16f)
                 ) {
                     Text(
@@ -119,12 +125,14 @@ fun CompatibilityReportCard(
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
                         color = tierColor,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                     )
                 }
             }
 
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 report.checks.forEach { check ->
                     val itemColor = when (check.severity) {
                         CompatibilityTier.VERIFIED_READY -> TelemetrySuccess
@@ -133,7 +141,7 @@ fun CompatibilityReportCard(
                     }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
                         verticalAlignment = Alignment.Top
                     ) {
                         Icon(
@@ -156,7 +164,9 @@ fun CompatibilityReportCard(
                             )
                             Text(
                                 text = check.detail,
-                                style = MaterialTheme.typography.bodySmall,
+                                style = MaterialTheme.typography.labelSmall,
+                                maxLines = 3,
+                                overflow = TextOverflow.Ellipsis,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -169,7 +179,7 @@ fun CompatibilityReportCard(
                     onClick = onAutoFixClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 48.dp)
+                        .heightIn(min = 36.dp)
                         .testTag("compat_autofix_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -244,7 +254,7 @@ fun ShizukuEngineBanner(
                     onClick = onGrantClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("shizuku_grant_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -257,7 +267,7 @@ fun ShizukuEngineBanner(
                     onClick = onOpenShizukuClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("shizuku_open_app_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -321,8 +331,8 @@ fun PrivilegedBridgeMultiCard(
 
         androidx.compose.foundation.layout.FlowRow(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             val modes = listOf(
                 com.example.core.privileged.PrivilegedBackendKind.AUTO to R.string.bridge_mode_auto,
@@ -341,7 +351,7 @@ fun PrivilegedBridgeMultiCard(
             }
         }
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
             snapshot.backends.forEach { item ->
                 val itemAccent = when {
                     item.isReady -> TelemetrySuccess
@@ -358,7 +368,7 @@ fun PrivilegedBridgeMultiCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp, vertical = 10.dp),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Box(
@@ -393,7 +403,7 @@ fun PrivilegedBridgeMultiCard(
                 onClick = onGrantClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 50.dp)
+                    .heightIn(min = 40.dp)
                     .testTag("shizuku_grant_button"),
                 shape = MaterialTheme.shapes.medium
             ) {
@@ -404,7 +414,7 @@ fun PrivilegedBridgeMultiCard(
                 onClick = onOpenAppClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 50.dp)
+                    .heightIn(min = 40.dp)
                     .testTag("shizuku_open_app_button"),
                 shape = MaterialTheme.shapes.medium
             ) {

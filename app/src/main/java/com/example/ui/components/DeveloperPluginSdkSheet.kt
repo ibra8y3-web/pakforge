@@ -320,15 +320,15 @@ private fun PluginsAndPermissionsTab(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
             OutlinedButton(
                 onClick = onImportManifestClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 48.dp)
+                    .heightIn(min = 40.dp)
                     .testTag("dev_import_manifest_btn"),
                 shape = MaterialTheme.shapes.medium
             ) {
@@ -349,15 +349,15 @@ private fun PluginsAndPermissionsTab(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     val localizedCopy = remember(rec.manifest, activeLang) {
                         PluginLocalization.manifestCopy(rec.manifest, activeLang)
                     }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         ForgeIconTile(
@@ -429,14 +429,14 @@ private fun PluginsAndPermissionsTab(
                     )
 
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         FilledTonalButton(
                             onClick = { onRunPlugin(rec) },
                             enabled = rec.enabled,
                             modifier = Modifier
-                                .heightIn(min = 48.dp)
+                                .heightIn(min = 40.dp)
                                 .testTag("run_plugin_${rec.manifest.id}")
                         ) {
                             Icon(imageVector = Icons.Rounded.PlayArrow, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -447,7 +447,7 @@ private fun PluginsAndPermissionsTab(
                         OutlinedButton(
                             onClick = { showPermissions = !showPermissions },
                             modifier = Modifier
-                                .heightIn(min = 48.dp)
+                                .heightIn(min = 40.dp)
                                 .testTag("perms_toggle_${rec.manifest.id}")
                         ) {
                             Icon(imageVector = Icons.Rounded.Security, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -464,7 +464,7 @@ private fun PluginsAndPermissionsTab(
 
                     if (showPermissions) {
                         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             rec.manifest.permissions.forEach { perm ->
                                 val granted = perm in rec.grantedPermissions
                                 Row(
@@ -505,7 +505,7 @@ private fun PluginsAndPermissionsTab(
                                 text = summary,
                                 style = MaterialTheme.typography.labelSmall,
                                 color = tint,
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                             )
                         }
                     }
@@ -523,10 +523,10 @@ private fun PluginsAndPermissionsTab(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(14.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                            .padding(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             Icon(Icons.Rounded.Terminal, contentDescription = null, modifier = Modifier.size(18.dp), tint = MaterialTheme.colorScheme.primary)
                             Text(stringResource(R.string.dev_sandbox_output_title), style = MaterialTheme.typography.titleSmall)
                         }
@@ -552,19 +552,19 @@ private fun PluginsAndPermissionsTab(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(14.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                            .padding(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Icon(Icons.Rounded.NotificationsActive, contentDescription = null, modifier = Modifier.size(18.dp), tint = MaterialTheme.colorScheme.secondary)
                                 Text(stringResource(R.string.dev_notifications_feed_title), style = MaterialTheme.typography.titleSmall)
                             }
-                            OutlinedButton(onClick = onClearNotifications, modifier = Modifier.heightIn(min = 48.dp)) {
+                            OutlinedButton(onClick = onClearNotifications, modifier = Modifier.heightIn(min = 40.dp)) {
                                 Text(stringResource(R.string.dev_clear_btn))
                             }
                         }
@@ -616,8 +616,8 @@ private fun SdkAndSampleProjectTab(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Card(
             shape = MaterialTheme.shapes.large,
@@ -625,10 +625,10 @@ private fun SdkAndSampleProjectTab(
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                modifier = Modifier.fillMaxWidth().padding(10.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Icon(Icons.Rounded.Archive, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                     Text(
                         text = stringResource(R.string.dev_sdk_header_title, PakForgeSdkSpec.SDK_VERSION),
@@ -645,7 +645,7 @@ private fun SdkAndSampleProjectTab(
                     onClick = onExportSdkZipClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("export_sdk_zip_button"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -662,8 +662,8 @@ private fun SdkAndSampleProjectTab(
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(14.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                modifier = Modifier.fillMaxWidth().padding(10.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(stringResource(R.string.dev_sdk_tree_title, sdkFiles.size), style = MaterialTheme.typography.titleSmall)
                 sdkFiles.keys.forEach { path ->
@@ -683,8 +683,8 @@ private fun SdkAndSampleProjectTab(
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(14.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier.fillMaxWidth().padding(10.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -694,7 +694,7 @@ private fun SdkAndSampleProjectTab(
                     Text(stringResource(R.string.dev_sdk_ref_manifest), style = MaterialTheme.typography.titleSmall)
                     OutlinedButton(
                         onClick = { clipboard.setText(AnnotatedString(sampleManifestJson)) },
-                        modifier = Modifier.heightIn(min = 48.dp)
+                        modifier = Modifier.heightIn(min = 40.dp)
                     ) {
                         Icon(Icons.Rounded.ContentCopy, contentDescription = null, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(6.dp))
@@ -724,16 +724,16 @@ private fun UnifiedApisAndExamplesTab() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Card(
             shape = MaterialTheme.shapes.large,
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
         ) {
-            Column(modifier = Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(modifier = Modifier.fillMaxWidth().padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Icon(Icons.Rounded.Extension, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                     Text(stringResource(R.string.dev_apis_unified_title), style = MaterialTheme.typography.titleSmall)
                 }
@@ -742,7 +742,7 @@ private fun UnifiedApisAndExamplesTab() {
                         shape = RoundedCornerShape(8.dp),
                         color = MaterialTheme.colorScheme.surfaceVariant
                     ) {
-                        Column(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+                        Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
                             Text(info.name, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
                             Text(
                                 text = stringResource(R.string.dev_apis_perm_label, info.permissionKey),
@@ -765,7 +765,7 @@ private fun UnifiedApisAndExamplesTab() {
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
             ) {
-                Column(modifier = Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(modifier = Modifier.fillMaxWidth().padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -792,7 +792,7 @@ private fun UnifiedApisAndExamplesTab() {
                             fontFamily = FontFamily.Monospace,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(10.dp)
+                                .padding(8.dp)
                                 .horizontalScroll(rememberScrollState())
                         )
                     }
@@ -813,8 +813,8 @@ private fun FullSdkDocumentationTab() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         sections.forEach { section ->
             Card(
@@ -822,8 +822,8 @@ private fun FullSdkDocumentationTab() {
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
             ) {
-                Column(modifier = Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(modifier = Modifier.fillMaxWidth().padding(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Icon(Icons.AutoMirrored.Rounded.MenuBook, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
                         Text(section.title, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                     }

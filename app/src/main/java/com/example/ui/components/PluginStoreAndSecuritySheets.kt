@@ -129,19 +129,19 @@ fun PluginStoreTabContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 OutlinedButton(
                     onClick = onImportBundleClick,
                     modifier = Modifier
                         .weight(1f)
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("store_import_bundle_btn"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -154,7 +154,7 @@ fun PluginStoreTabContent(
                     onClick = onOpenBuilderClick,
                     modifier = Modifier
                         .weight(1f)
-                        .heightIn(min = 50.dp)
+                        .heightIn(min = 40.dp)
                         .testTag("store_open_builder_btn"),
                     shape = MaterialTheme.shapes.medium
                 ) {
@@ -205,15 +205,15 @@ fun PluginStoreTabContent(
                                 rec.matchReasons.joinToString(" • ") { PluginLocalization.localizeSmartReason(it, activeLang) }
                             }
                             Surface(
-                                shape = RoundedCornerShape(10.dp),
+                                shape = RoundedCornerShape(6.dp),
                                 color = MaterialTheme.colorScheme.surface,
                                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
                             ) {
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(10.dp),
-                                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                                        .padding(8.dp),
+                                    verticalArrangement = Arrangement.spacedBy(4.dp)
                                 ) {
                                     Row(
                                         modifier = Modifier.fillMaxWidth(),
@@ -245,14 +245,14 @@ fun PluginStoreTabContent(
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                     Row(
-                                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp),
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         if (isInstalled) {
                                             FilledTonalButton(
                                                 onClick = { onRunInstalledPlugin(rec.manifest.id) },
                                                 modifier = Modifier
-                                                    .heightIn(min = 48.dp)
+                                                    .heightIn(min = 40.dp)
                                                     .testTag("smart_run_${rec.manifest.id}")
                                             ) {
                                                 Icon(Icons.Rounded.PlayArrow, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -263,7 +263,7 @@ fun PluginStoreTabContent(
                                             Button(
                                                 onClick = { onInspectStoreListing(storeListing) },
                                                 modifier = Modifier
-                                                    .heightIn(min = 48.dp)
+                                                    .heightIn(min = 40.dp)
                                                     .testTag("smart_install_${rec.manifest.id}")
                                             ) {
                                                 Icon(Icons.Rounded.VerifiedUser, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -281,7 +281,7 @@ fun PluginStoreTabContent(
 
         // Search + Category Filters
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 OutlinedTextField(
                     colors = forgeFieldColors(),
                     value = searchQuery,
@@ -296,8 +296,8 @@ fun PluginStoreTabContent(
                 )
 
                 FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     FilterChip(
                         selected = selectedCategory == null,
@@ -335,8 +335,8 @@ fun PluginStoreTabContent(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -387,8 +387,8 @@ fun PluginStoreTabContent(
                     )
 
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         val tags = copy.highlights.ifEmpty {
                             if (activeLang == "ar") listing.highlightsAr else listing.highlightsEn
@@ -409,14 +409,14 @@ fun PluginStoreTabContent(
                     }
 
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         if (isInstalled) {
                             FilledTonalButton(
                                 onClick = { onRunInstalledPlugin(m.id) },
                                 modifier = Modifier
-                                    .heightIn(min = 48.dp)
+                                    .heightIn(min = 40.dp)
                                     .testTag("store_quick_run_${m.id}")
                             ) {
                                 Icon(Icons.Rounded.PlayArrow, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -426,7 +426,7 @@ fun PluginStoreTabContent(
                             OutlinedButton(
                                 onClick = { onInspectStoreListing(listing) },
                                 modifier = Modifier
-                                    .heightIn(min = 48.dp)
+                                    .heightIn(min = 40.dp)
                                     .testTag("store_install_${m.id}")
                             ) {
                                 Icon(Icons.Rounded.Shield, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -438,7 +438,7 @@ fun PluginStoreTabContent(
                                 onClick = { onInspectStoreListing(listing) },
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .heightIn(min = 48.dp)
+                                    .heightIn(min = 40.dp)
                                     .testTag("store_install_${m.id}"),
                                 shape = MaterialTheme.shapes.medium
                             ) {
@@ -488,7 +488,7 @@ fun PluginSecurityReviewDialog(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(10.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Surface(
@@ -501,8 +501,8 @@ fun PluginSecurityReviewDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .verticalScroll(rememberScrollState())
-                            .padding(18.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                            .padding(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -512,7 +512,7 @@ fun PluginSecurityReviewDialog(
                             Row(
                                 modifier = Modifier.weight(1f),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
                                 Icon(Icons.Rounded.Shield, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                 Text(
@@ -540,12 +540,12 @@ fun PluginSecurityReviewDialog(
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(12.dp),
+                                    .padding(8.dp),
                                 verticalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                                 ) {
                                     Icon(
                                         imageVector = when (scanResult.riskTier) {
@@ -590,13 +590,13 @@ fun PluginSecurityReviewDialog(
                                 PluginLocalization.manifestCopy(manifest, activeLang)
                             }
                             Surface(
-                                shape = RoundedCornerShape(10.dp),
+                                shape = RoundedCornerShape(6.dp),
                                 color = MaterialTheme.colorScheme.surfaceVariant
                             ) {
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(12.dp),
+                                        .padding(8.dp),
                                     verticalArrangement = Arrangement.spacedBy(4.dp)
                                 ) {
                                     Text(
@@ -619,11 +619,11 @@ fun PluginSecurityReviewDialog(
                         }
 
                         // Findings Checklist
-                        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             scanResult.findings.forEach { f ->
                                 Row(
                                     verticalAlignment = Alignment.Top,
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
                                 ) {
                                     Icon(
                                         imageVector = if (f.passed) Icons.Rounded.CheckCircle else Icons.Rounded.Cancel,
@@ -690,13 +690,13 @@ fun PluginSecurityReviewDialog(
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             OutlinedButton(
                                 onClick = onDismiss,
                                 modifier = Modifier
                                     .weight(1f)
-                                    .heightIn(min = 48.dp)
+                                    .heightIn(min = 40.dp)
                                     .testTag("security_cancel_btn")
                             ) {
                                 Text(stringResource(R.string.action_close))
@@ -706,7 +706,7 @@ fun PluginSecurityReviewDialog(
                                 enabled = scanResult.canInstall,
                                 modifier = Modifier
                                     .weight(1.6f)
-                                    .heightIn(min = 48.dp)
+                                    .heightIn(min = 40.dp)
                                     .testTag("security_confirm_install_btn"),
                                 colors = if (scanResult.canInstall) {
                                     ButtonDefaults.buttonColors()
@@ -859,8 +859,8 @@ fun DeveloperPluginBuilderDialog(
                         .widthIn(max = 760.dp)
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     // ECDSA Key Identity Card
                     ForgeSectionCard(
@@ -879,8 +879,8 @@ fun DeveloperPluginBuilderDialog(
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                                .padding(10.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                     OutlinedTextField(
                         colors = forgeFieldColors(),
@@ -895,7 +895,7 @@ fun DeveloperPluginBuilderDialog(
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         OutlinedTextField(
                             colors = forgeFieldColors(),
@@ -945,8 +945,8 @@ fun DeveloperPluginBuilderDialog(
                         accent = MaterialTheme.colorScheme.primary
                     ) {
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         PluginCategory.entries.forEach { cat ->
                             FilterChip(
@@ -964,8 +964,8 @@ fun DeveloperPluginBuilderDialog(
                         accent = MaterialTheme.colorScheme.secondary
                     ) {
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         PluginActionStep.entries.forEach { step ->
                             FilterChip(
@@ -989,8 +989,8 @@ fun DeveloperPluginBuilderDialog(
                         accent = MaterialTheme.colorScheme.tertiary
                     ) {
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         PluginPermission.entries.forEach { perm ->
                             FilterChip(
@@ -1014,8 +1014,8 @@ fun DeveloperPluginBuilderDialog(
                         accent = MaterialTheme.colorScheme.primary
                     ) {
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         FilterChip(
                             selected = requireSplits,
@@ -1059,21 +1059,21 @@ fun DeveloperPluginBuilderDialog(
                                 text = validation.errors.joinToString("\n"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = TelemetryError,
-                                modifier = Modifier.padding(10.dp)
+                                modifier = Modifier.padding(8.dp)
                             )
                         }
                     }
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         OutlinedButton(
                             onClick = { onSignAndExport(draftManifest) },
                             enabled = validation.isValid,
                             modifier = Modifier
                                 .weight(1f)
-                                .heightIn(min = 50.dp)
+                                .heightIn(min = 40.dp)
                                 .testTag("builder_sign_export_btn"),
                             shape = MaterialTheme.shapes.medium
                         ) {
@@ -1087,7 +1087,7 @@ fun DeveloperPluginBuilderDialog(
                             enabled = validation.isValid,
                             modifier = Modifier
                                 .weight(1f)
-                                .heightIn(min = 50.dp)
+                                .heightIn(min = 40.dp)
                                 .testTag("builder_sign_install_btn"),
                             shape = MaterialTheme.shapes.medium
                         ) {

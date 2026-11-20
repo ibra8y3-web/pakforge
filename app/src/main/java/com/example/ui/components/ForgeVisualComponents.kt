@@ -75,7 +75,7 @@ fun DrawableAppIcon(
     drawable: Drawable?,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    size: Dp = 44.dp
+    size: Dp = 36.dp
 ) {
     val bitmap: ImageBitmap? = remember(drawable) {
         drawable?.let { d ->
@@ -140,7 +140,7 @@ fun HeroForgeBanner(
             )
             Box(
                 modifier = Modifier
-                    .size(190.dp)
+                    .size(130.dp)
                     .align(Alignment.TopEnd)
                     .offset(x = 56.dp, y = (-64).dp)
                     .clip(CircleShape)
@@ -157,8 +157,8 @@ fun HeroForgeBanner(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                    .padding(10.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Surface(
                     shape = CircleShape,
@@ -178,13 +178,13 @@ fun HeroForgeBanner(
 
                 Text(
                     text = stringResource(R.string.hero_title),
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.titleLarge,
                     color = Color.White
                 )
 
                 Text(
                     text = stringResource(R.string.hero_subtitle),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFE3E8FF)
                 )
 
@@ -203,8 +203,8 @@ fun TelemetryRibbon(
 ) {
     FlowRow(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         TelemetryPill(
             icon = Icons.Rounded.Memory,
@@ -239,14 +239,14 @@ private fun TelemetryPill(
     accent: Color
 ) {
     Surface(
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(6.dp),
         color = Color(0x33FFFFFF),
         border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.28f))
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
                 imageVector = icon,
@@ -300,7 +300,7 @@ fun PackageBreakdownCanvasBar(
     val safeTotal = totalRawBytes.coerceAtLeast(1L).toFloat()
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Canvas(
             modifier = Modifier
@@ -326,13 +326,13 @@ fun PackageBreakdownCanvasBar(
 
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             breakdown.forEach { bucket ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Box(
                         modifier = Modifier
@@ -373,7 +373,7 @@ fun EntropyGauge(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Canvas(
             modifier = Modifier
@@ -417,12 +417,12 @@ fun CompressionSavingsRing(
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Box(
-            modifier = Modifier.size(72.dp),
+            modifier = Modifier.size(40.dp),
             contentAlignment = Alignment.Center
         ) {
             val trackColor = MaterialTheme.colorScheme.surfaceContainerHigh
             Canvas(modifier = Modifier.fillMaxSize()) {
-                val strokeWidth = 7.dp.toPx()
+                val strokeWidth = 4.dp.toPx()
                 val inset = strokeWidth / 2f
                 val arcSize = Size(size.width - strokeWidth, size.height - strokeWidth)
                 drawArc(
@@ -453,8 +453,8 @@ fun CompressionSavingsRing(
                 }
             }
             Text(
-                text = String.format(java.util.Locale.US, "-%.0f%%", savedPercent.coerceIn(0.0, 99.9)),
-                style = MaterialTheme.typography.labelMedium,
+                text = "\u200E" + String.format(java.util.Locale.US, "-%.0f%%", savedPercent.coerceIn(0.0, 99.9)),
+                style = MaterialTheme.typography.labelSmall,
                 color = accentColor,
                 fontWeight = FontWeight.Bold
             )

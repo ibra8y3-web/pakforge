@@ -32,77 +32,77 @@ val PakForgeTypography = Typography(
     displaySmall = TextStyle(
         fontFamily = DisplayFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 32.sp,
-        lineHeight = 38.sp,
+        fontSize = 26.sp,
+        lineHeight = 32.sp,
         letterSpacing = (-0.5).sp
     ),
     headlineMedium = TextStyle(
         fontFamily = DisplayFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 24.sp,
-        lineHeight = 30.sp,
+        fontSize = 20.sp,
+        lineHeight = 26.sp,
         letterSpacing = (-0.25).sp
     ),
     headlineSmall = TextStyle(
         fontFamily = DisplayFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp,
-        lineHeight = 26.sp
+        fontSize = 17.sp,
+        lineHeight = 23.sp
     ),
     titleLarge = TextStyle(
         fontFamily = BodyFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
-        lineHeight = 24.sp
+        fontSize = 16.sp,
+        lineHeight = 21.sp
     ),
     titleMedium = TextStyle(
         fontFamily = BodyFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
-        lineHeight = 22.sp
+        fontSize = 14.sp,
+        lineHeight = 19.sp
     ),
     titleSmall = TextStyle(
         fontFamily = BodyFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        lineHeight = 20.sp
+        fontSize = 13.sp,
+        lineHeight = 18.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = BodyFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp,
-        lineHeight = 22.sp
+        fontSize = 13.5.sp,
+        lineHeight = 19.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = BodyFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 13.5.sp,
-        lineHeight = 20.sp
+        fontSize = 12.5.sp,
+        lineHeight = 17.sp
     ),
     bodySmall = TextStyle(
         fontFamily = BodyFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        lineHeight = 16.sp
+        fontSize = 11.sp,
+        lineHeight = 14.sp
     ),
     labelLarge = TextStyle(
         fontFamily = BodyFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        lineHeight = 18.sp
+        fontSize = 13.sp,
+        lineHeight = 17.sp
     ),
     labelMedium = TextStyle(
         fontFamily = MonoFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.5.sp,
-        lineHeight = 15.sp,
+        fontSize = 10.5.sp,
+        lineHeight = 14.sp,
         letterSpacing = 0.4.sp
     ),
     labelSmall = TextStyle(
         fontFamily = MonoFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 10.sp,
-        lineHeight = 14.sp,
+        fontSize = 9.5.sp,
+        lineHeight = 13.sp,
         letterSpacing = 0.5.sp
     )
 )

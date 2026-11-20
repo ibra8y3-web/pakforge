@@ -94,7 +94,7 @@ fun forgeBrandBrush(): Brush = Brush.linearGradient(
 fun ForgeEmptyIconBadge(
     icon: ImageVector,
     modifier: Modifier = Modifier,
-    size: Dp = 76.dp
+    size: Dp = 52.dp
 ) {
     val cs = MaterialTheme.colorScheme
     Box(
@@ -132,7 +132,7 @@ fun ForgeIconTile(
     icon: ImageVector,
     modifier: Modifier = Modifier,
     accent: Color = MaterialTheme.colorScheme.primary,
-    size: Dp = 40.dp
+    size: Dp = 30.dp
 ) {
     Box(
         modifier = modifier
@@ -160,7 +160,7 @@ fun ForgePill(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(6.dp),
         color = accent.copy(alpha = 0.14f),
         border = BorderStroke(1.dp, accent.copy(alpha = 0.30f))
     ) {
@@ -203,12 +203,12 @@ fun ForgeSectionCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 if (icon != null) {
                     ForgeIconTile(icon = icon, accent = accent)
@@ -216,9 +216,11 @@ fun ForgeSectionCard(
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
-                        color = cs.onSurface
+                        color = cs.onSurface,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
                     if (subtitle != null) {
                         Text(
