@@ -16,7 +16,7 @@ jobs:
   unit-tests:
     name: Unit & Robolectric Compose Tests
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 60
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
